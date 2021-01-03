@@ -17,7 +17,7 @@ const createDB = async () => {
     
         try{
             const knex = require('knex')({ client: 'mysql', connection: conn });
-            await knex.raw(`CREATE DATABASE ${process.env.DB_BASE ? process.env.DB_BASE : "portal_prefacio"}`).then(() => { }).catch(e => {});
+            await knex.raw(`CREATE DATABASE ${process.env.DB_BASE ? process.env.DB_BASE : "sistemas_fichas_dnd"}`).then(() => { }).catch(e => {});
         }catch(e){
             console.log(e);
         }

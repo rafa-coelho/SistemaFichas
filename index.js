@@ -20,7 +20,7 @@ global.PROD = process.env.NODE_ENV === 'prod';
 
 const fs = require("fs");
 
-["utils", "classes"].forEach(dir => {
+["System", "classes"].forEach(dir => {
     try {
         const files = fs.readdirSync(dir);
         files.forEach(function (file) {
@@ -33,6 +33,7 @@ const fs = require("fs");
 });
 
 const consign = require('consign');
+const Personagem = require('./classes/Personagem');
 consign().include('controllers').into(app);
 
 
@@ -42,4 +43,6 @@ app.listen(port, async () => {
     for (let index = 0; index < 10; index++) console.log("\n");
     console.clear();
     console.log(`Rodando na porta ${port}`);
+
+
 });
