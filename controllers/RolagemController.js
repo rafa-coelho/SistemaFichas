@@ -43,7 +43,7 @@ module.exports = (app) => {
 
         const valorAtributo = personagem[params.atributo];
         const modificador = Personagem.calcularModificador(valorAtributo);
-        
+
         const roll1 = new DiceRoll(`1d20`);
         let valorRolagem = roll1.total;
 
@@ -57,17 +57,34 @@ module.exports = (app) => {
             data: new Date() / 1000 | 0
         };
 
-        const sobra = 20 - valorAtributo;
-        if (valorRolagem === 1) {
-            data.tipo = "Critico";
-        } else if (sobra > valorRolagem) {
-            data.tipo = "Falha";
-        } else if (sobra + valorAtributo * 0.5 >= valorRolagem) {
-            data.tipo = "Normal";
-        } else if (sobra + valorAtributo * 0.9 >= valorRolagem) {
-            data.tipo = "Bom";
+        if (params.atributo === 'sanidade') {
+            const d100 = new DiceRoll(`1d100`);
+            valorRolagem = d100.total;
+            data.valor = valorRolagem;
+
+            if (valorRolagem === 1) {
+                data.tipo = "Extremo";
+            }else if(valorRolagem <= valorAtributo){
+                data.tipo = "Sucesso";
+            }else if(valorRolagem === 100){
+                data.tipo = "Critico";
+            }else{
+                data.tipo = "Falha";
+            }
+
         } else {
-            data.tipo = "Extremo";
+            const sobra = 20 - valorAtributo;
+            if (valorRolagem === 1) {
+                data.tipo = "Critico";
+            } else if (sobra > valorRolagem) {
+                data.tipo = "Falha";
+            } else if (sobra + valorAtributo * 0.5 >= valorRolagem) {
+                data.tipo = "Normal";
+            } else if (sobra + valorAtributo * 0.9 >= valorRolagem) {
+                data.tipo = "Bom";
+            } else {
+                data.tipo = "Extremo";
+            }
         }
 
 
@@ -107,16 +124,16 @@ module.exports = (app) => {
         const pericia = getPericiaByLabel(params.pericia);
 
         let modificador = Personagem.calcularModificador(personagem[pericia.atributo]);
-        
-        if(personagem.pericias.find(x => x.nome === pericia.nome)){
+
+        if (personagem.pericias.find(x => x.nome === pericia.nome)) {
             modificador = modificador + Personagem.calcularProficiencia(personagem.nivel);
         }
-        
+
         const valorPericia = modificador + personagem[pericia.atributo];
 
         const roll1 = new DiceRoll(`1d20+${modificador}`);
-        let valorRolagem = roll1.total;        
-        
+        let valorRolagem = roll1.total;
+
         const data = {
             id: Util.generateId(),
             personagem: query.personagem,
@@ -129,13 +146,13 @@ module.exports = (app) => {
 
         const porcent = (valorRolagem / (20 + modificador)) * 100;
 
-        if(valorRolagem === 1){
+        if (valorRolagem === 1) {
             data.tipo = "Crítico";
-        }else if (porcent < 50){
+        } else if (porcent < 50) {
             data.tipo = "Falha";
-        }else if(porcent >= 50 && porcent < 90){
+        } else if (porcent >= 50 && porcent < 90) {
             data.tipo = "Normal";
-        }else{
+        } else {
             data.tipo = "Extremo";
         }
         const createRolagem = await Rolagem.Create(data);
