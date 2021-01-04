@@ -99,13 +99,12 @@
 
     
     const checkStats = () => {
-        timestamp = SecondsAgo(5);
+        const timestamp = SecondsAgo(3);
         $.ajax({
             url: `/personagem/${personagem}`,
             method: 'GET',
             complete: (res) => {
                 const response = res.responseJSON;
-                console.log(response.data);
                 if(response.status === 1){
 
                     const pers = response.data;
@@ -125,12 +124,12 @@
 
                     setTimeout(() => {
                         checkStats();
-                    }, 5000);
+                    }, 3000);
 
                 }else{
                     setTimeout(() => {
                         checkStats();
-                    }, 5000);
+                    }, 3000);
                 }
 
             }
@@ -138,13 +137,12 @@
     };
     
     const checkRoll = () => {
-        timestamp = SecondsAgo(5);
+        const timestamp = SecondsAgo(3);
         $.ajax({
             url: `/rolagem/personagem/${personagem}?timestamp=${timestamp}`,
             method: 'GET',
             complete: (res) => {
                 const response = res.responseJSON;
-                console.log(response.data);
                 if(response.status === 1){
                     
                     for (let i = 0; i < response.data.rolagens.length; i++) {
@@ -168,12 +166,12 @@
 
                     setTimeout(() => {
                         checkRoll();
-                    }, 5000);
+                    }, 3000);
 
                 }else{
                     setTimeout(() => {
                         checkRoll();
-                    }, 5000);
+                    }, 3000);
                 }
 
             }

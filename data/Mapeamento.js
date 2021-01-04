@@ -32,25 +32,31 @@ data.modificadores = [
     { valor: 29, modificador: 9 }
 ];
 
+
+
 data.pericias = [
-    { nome: "Acrobacia", atributo: "destreza" },
-    { nome: "Arcanismo", atributo: "inteligencia" },
-    { nome: "Atletismo", atributo: "forca" },
-    { nome: "Atuação", atributo: "carisma" },
-    { nome: "Blefar", atributo: "carisma" },
-    { nome: "Furtividade", atributo: "destreza" },
-    { nome: "História", atributo: "inteligencia" },
-    { nome: "Intimidação", atributo: "carisma" },
-    { nome: "Intuição", atributo: "sabedoria" },
-    { nome: "Investigação", atributo: "inteligencia" },
-    { nome: "Lidar com Animais", atributo: "sabedoria" },
-    { nome: "Medicina", atributo: "sabedoria" },
-    { nome: "Natureza", atributo: "inteligencia" },
-    { nome: "Percepção", atributo: "sabedoria" },
-    { nome: "Persuasão", atributo: "carisma" },
-    { nome: "Prestidigitação", atributo: "destreza" },
-    { nome: "Religião", atributo: "inteligencia" },
-    { nome: "Sobrevivência", atributo: "sabedoria" },
+    { nome: "Acrobacia", label: "acrobacia", atributo: "destreza" },
+    { nome: "Arcanismo", label: "arcanismo", atributo: "inteligencia" },
+    { nome: "Atletismo", label: "atletismo", atributo: "forca" },
+    { nome: "Atuação", label: "atuacaoo", atributo: "carisma" },
+    { nome: "Blefar", label: "blefar", atributo: "carisma" },
+    { nome: "Furtividade", label: "furtividade", atributo: "destreza" },
+    { nome: "História", label: "historia", atributo: "inteligencia" },
+    { nome: "Intimidação", label: "intimidacao", atributo: "carisma" },
+    { nome: "Intuição", label: "intuicao", atributo: "sabedoria" },
+    { nome: "Investigação", label: "investigacao", atributo: "inteligencia" },
+    { nome: "Lidar com Animais", label: "lidar-com-animais", atributo: "sabedoria" },
+    { nome: "Medicina", label: "medicina", atributo: "sabedoria" },
+    { nome: "Natureza", label: "natureza", atributo: "inteligencia" },
+    { nome: "Percepção", label: "percepcao", atributo: "sabedoria" },
+    { nome: "Persuasão", label: "persuasao", atributo: "carisma" },
+    { nome: "Prestidigitação", label: "prestidigitacao", atributo: "destreza" },
+    { nome: "Religião", label: "religiao", atributo: "inteligencia" },
+    { nome: "Sobrevivência", label: "sobrevivencia", atributo: "sabedoria" },
 ];
+
+data.getPericiaByLabel = (label) => {
+    return data.pericias.find(x => x.label === label);
+};
 
 module.exports = data;

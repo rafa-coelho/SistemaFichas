@@ -7,10 +7,11 @@ class Personagem extends Classes
     static calcularModificador = (valor) => {
         let repeat = [ ];
         let modificador = -5;
-        for(let i = 1; i <= valor; i++){
+        for(let i = 1; i < valor; i++){
             repeat.push(modificador)
             
             if(repeat.filter(x => x === modificador).length == 2 || modificador === -5){
+
                 modificador = modificador + 1;
             }
         }
@@ -20,7 +21,7 @@ class Personagem extends Classes
     
     static calcularProficiencia = (valor) => {
         let repeat = [ ];
-        let proficiencia = -5;
+        let proficiencia = 2;
         for(let i = 1; i <= valor; i++){
             repeat.push(proficiencia)
             
