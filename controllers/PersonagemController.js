@@ -1,6 +1,5 @@
-const { modificadores } = require('../data/Mapeamento');
-const { DiceRoller, DiceRoll } = require('rpg-dice-roller/lib/umd/bundle.js');
-const { cookie } = require('express-validator/check');
+const { DiceRoll } = require('rpg-dice-roller/lib/umd/bundle.js');
+
 module.exports = (app) => {
 
     app.get(`/teste-atributo/:atributo`, async (req, res) => {
@@ -18,7 +17,7 @@ module.exports = (app) => {
             resp.errors.push({
                 msg: "Personagem não encontrado"
             });
-            res.status(404).send(resp);
+            return res.status(404).send(resp);
         }
 
         const valorAtributo = personagem[params.atributo];
@@ -57,6 +56,7 @@ module.exports = (app) => {
             resp.errors.push({
                 msg: "Erro ao rolar os dados"
             });
+            return res.status(500).send(resp);
         }
 
         resp.status = 1;
@@ -65,5 +65,28 @@ module.exports = (app) => {
         res.send(resp);
     });
 
+
+    app.get(`/personagem/:id`, async (req, res) => {
+        const { params } = req;
+        const resp = {
+            status: 0,
+            data: null,
+            errors: [],
+            msg: ''
+        };
+
+        const personagem = await Personagem.GetFirst(`id = '${params.id}'`);
+
+        if(!personagem){
+            resp.errors.push({
+                msg: "Personagem não encontrado!"
+            });
+            return res.status(404).send(resp);
+        }
+
+        resp.status = 1;
+        resp.data = personagem;
+        res.send(resp);
+    });
 
 };

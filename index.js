@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const expressValidator = require("express-validator");
+const path = require('path');
 
 app.use(express.json());
 app.use(cors());
@@ -11,13 +12,13 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
     res.header('Access-Control-Expose-Headers', '*');
-    // res.header('Referrer-Policy', 'strict-origin-when-cross-origin');
     next();
 });
 
 global.ROOT = __dirname;
 global.PROD = process.env.NODE_ENV === 'prod';
 
+app.use(`/media`, express.static(path.resolve(__dirname, 'media')));
 const fs = require("fs");
 
 ["System", "classes"].forEach(dir => {
@@ -32,8 +33,8 @@ const fs = require("fs");
     }
 });
 
+
 const consign = require('consign');
-const Personagem = require('./classes/Personagem');
 consign().include('controllers').into(app);
 
 
@@ -43,6 +44,6 @@ app.listen(port, async () => {
     for (let index = 0; index < 10; index++) console.log("\n");
     console.clear();
     console.log(`Rodando na porta ${port}`);
-
+    
 
 });
