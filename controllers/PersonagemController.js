@@ -22,34 +22,33 @@ module.exports = (app) => {
 
         const valorAtributo = personagem[params.atributo];
         const modificador = Personagem.calcularModificador(valorAtributo);
-        const roll1 = new DiceRoll(`1d20+${modificador}`);
-        const roll2 = new DiceRoll(`1d20+${modificador}`);
+        const roll1 = new DiceRoll(`1d20`);
 
         let valorRolagem = roll1.total;
 
-        switch (query.tipo) {
-            case "vantagem":
-                valorRolagem = (roll1.total > roll2.total) ? roll1.total : roll2.total;
-                break;
-            case "desvantagem":
-                valorRolagem = (roll1.total < roll2.total) ? roll1.total : roll2.total;
-                break;
-        }
-
         const data = {
-            id: Util.generateId(), 
-            personagem: query.personagem, 
-            atributo: params.atributo, 
-            titulo: params.atributo, 
+            id: Util.generateId(),
+            personagem: query.personagem,
+            atributo: params.atributo,
+            titulo: params.atributo,
             valor: valorRolagem,
             modificador: modificador,
             data: new Date() / 1000 | 0
         };
 
-        if (valorRolagem >= valorAtributo + 5 && valorRolagem <= valorAtributo + 10) data.tipo = "Extremo";
-        if (valorRolagem >= valorAtributo && valorRolagem <= valorAtributo + 5) data.tipo = "Sucesso";
-        if (valorRolagem >= valorAtributo - 5 && valorRolagem < valorAtributo) data.tipo = "Falha";
-        if (valorRolagem >= valorAtributo - 10 && valorRolagem < valorAtributo - 5) data.tipo = "Crítico";
+        const sobra = 20 - valorAtributo;
+        if (valorRolagem === 1) {
+            data.tipo = "Critica";
+        } else if (sobra > valorRolagem) {
+            data.tipo = "Falha";
+        } else if (sobra + valorAtributo * 0.5 >= valorRolagem) {
+            data.tipo = "Normal";
+        } else if (sobra + valorAtributo * 0.9 >= valorRolagem) {
+            data.tipo = "Bom";
+        } else {
+            data.tipo = "Extremo";
+        }
+
 
         const createRolagem = await Rolagem.Create(data);
         if (createRolagem.status !== 1) {
@@ -77,7 +76,7 @@ module.exports = (app) => {
 
         const personagem = await Personagem.GetFirst(`id = '${params.id}'`);
 
-        if(!personagem){
+        if (!personagem) {
             resp.errors.push({
                 msg: "Personagem não encontrado!"
             });
@@ -86,6 +85,65 @@ module.exports = (app) => {
 
         resp.status = 1;
         resp.data = personagem;
+        res.send(resp);
+    });
+
+    app.put(`/personagem/:id`, async (req, res) => {
+        const { params, body } = req;
+        const resp = {
+            status: 0,
+            data: null,
+            errors: [],
+            msg: ''
+        };
+
+        const personagem = await Personagem.GetFirst(`id = '${params.id}'`);
+
+        if (!personagem) {
+            resp.errors.push({
+                msg: "Personagem não encontrado!"
+            });
+        }
+
+        const proibidos = ['id'];
+
+        let edit = false;
+
+        const payload = {};
+        Personagem.fields.forEach(campo => {
+            if (body[campo] !== undefined && !proibidos.includes(campo)) {
+                payload[campo] = body[campo];
+                edit = true;
+            }
+        });
+
+        if (body.pericias) {
+            // perícias...
+        }
+
+        if (body.resistencia) {
+            // resistencia...
+        }
+
+        if (!edit) {
+            resp.errors.push({
+                msg: "Nada para editar"
+            });
+            return res.status(400).send(resp);
+        }
+
+        const update = await Personagem.Update(payload, `id = '${params.id}'`);
+
+        if (update.status !== 1) {
+            resp.errors.push({
+                msg: "Não foi possivel atualizar",
+            });
+
+            return res.status(500).send(resp);
+        }
+
+        resp.status = 1;
+        resp.msg = "Atualizado com sucesso";
         res.send(resp);
     });
 

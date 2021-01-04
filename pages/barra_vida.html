@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rolagem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        *{
+            font-family: 'Roboto', sans-serif;
+        }
+        .gold {
+            color: #000;
+            font-weight: bold;
+            text-shadow: 0px 0px 8px gold;
+        }
+    </style>
+</head>
+<body>
+
+    <div style="display: block; width: 300px;">
+        <div class="row" style=" height: 100px;">
+            <div class="circulo" >
+
+                <img src="/media/d20.png" alt="D20" height="90" id="token" class="img-responsive" style="margin-top: -14px; margin-left: -5px;">
+                
+                
+                <div  id="rolagem" style="height: 100%; display: none;" >
+                    <div class="col-md-12 text-center" style="height: 50px">
+                        <img src="/media/d20.png" alt="D20" height="50" class="img-responsive" style="margin-top: 10px">
+                        <h4 style="position: relative; margin-top: -37px;" class="gold" id="valor_rolagem">20</h4>
+                    </div>
+                    <div class="col-md-12 text-center" style="height: 30px;">
+                        <h5 id="resultado" class="gold">
+                            Sucesso!
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="width: 200px;margin-left: -10px;">
+                <div id="nome" style="width: 100%; text-align: center; height: 25px;font-weight: bold; color: white; text-shadow: 0px 0px 8px black;">
+
+                </div>
+                <div class="progress" style="height: 25px;">
+                    <div class="progress-bar bg-success" id="hp" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                </div>
+                <div class="progress" style="height: 25px;">
+                    <div class="progress-bar bg-primary" id="sanidade" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+</html>
+
+<style>
+    .circulo{
+        width: 80px;
+        height:80px;
+        background-color: white; 
+        border: 2px solid black; 
+        border-radius: 50%;
+        margin-left: 20px;
+        margin-top: 10px;
+        text-align: center;
+        z-index: 999;
+    }
+    #token {
+        border-radius: 0 0 50% 50%;
+    }
+    .row div{
+        padding: 0px;
+    }
+    .progress{
+        background-color: grey;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const personagem = urlParams.get('personagem');
+
+    const SecondsAgo = (num) => {
+        var date = new Date();
+        date.setHours(date.getHours(), date.getMinutes(), date.getSeconds() - num, date.getMilliseconds());
+        return (date.getTime() / 1000) | 0;
+    };
+
+    var hp = 0;
+    var sanity = 0;
+
+    
+    const checkStats = () => {
+        timestamp = SecondsAgo(5);
+        $.ajax({
+            url: `/personagem/${personagem}`,
+            method: 'GET',
+            complete: (res) => {
+                const response = res.responseJSON;
+                console.log(response.data);
+                if(response.status === 1){
+
+                    const pers = response.data;
+                    
+                    $("#nome").text(pers.nome);
+                    $("#token").attr("src", `/media/${pers.id}.png`);
+
+                    $("#hp").attr("style", `width: ${(pers.hp / pers.hp_maximo) * 100}%`);
+                    $("#hp").attr("aria-valuemax", pers.hp_maximo);
+                    $("#hp").attr("aria-valuenow", pers.hp);
+                    $("#hp").text(`${pers.hp}/${pers.hp_maximo}`);
+
+                    $("#sanidade").attr("style", `width: ${(pers.sanidade / pers.sanidade_maxima) * 100}%`);
+                    $("#sanidade").attr("aria-valuemax", pers.sanidade_maxima);
+                    $("#sanidade").attr("aria-valuenow", pers.sanidade);
+                    $("#sanidade").text(`${pers.sanidade}/${pers.sanidade_maxima}`);
+
+                    setTimeout(() => {
+                        checkStats();
+                    }, 5000);
+
+                }else{
+                    setTimeout(() => {
+                        checkStats();
+                    }, 5000);
+                }
+
+            }
+        });
+    };
+    
+    const checkRoll = () => {
+        timestamp = SecondsAgo(5);
+        $.ajax({
+            url: `/rolagem/personagem/${personagem}?timestamp=${timestamp}`,
+            method: 'GET',
+            complete: (res) => {
+                const response = res.responseJSON;
+                console.log(response.data);
+                if(response.status === 1){
+                    
+                    for (let i = 0; i < response.data.rolagens.length; i++) {
+                        $("#token").fadeOut();
+                        setTimeout(() => {
+                            const rolagem = response.data.rolagens[i];
+    
+                            $("#valor_rolagem").text(rolagem.valor);
+                            $("#resultado").text(rolagem.tipo);
+                            $("#rolagem").fadeIn('slow');
+                            setTimeout(() => {
+                                $('#rolagem').fadeOut();
+                                setTimeout(() => {
+                                    $("#token").fadeIn();
+                                },300);
+                            }, 3000);
+
+                        }, 300);
+
+                    }
+
+                    setTimeout(() => {
+                        checkRoll();
+                    }, 5000);
+
+                }else{
+                    setTimeout(() => {
+                        checkRoll();
+                    }, 5000);
+                }
+
+            }
+        });
+    };
+
+    $(() => {
+        checkStats();
+        checkRoll();
+    });
+
+
+
+
+    
+    
+</script>
