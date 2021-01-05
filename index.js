@@ -7,7 +7,7 @@ const path = require('path');
 app.use(express.json());
 app.use(cors());
 app.use(expressValidator());
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
@@ -38,12 +38,10 @@ const consign = require('consign');
 consign().include('controllers').into(app);
 
 
-const port = PROD ? 3000 : 3333;    
+const port = PROD ? 3000 : 3333;
 app.listen(port, async () => {
     console.log("--------------------------------------------");
     for (let index = 0; index < 10; index++) console.log("\n");
     console.clear();
     console.log(`Rodando na porta ${port}`);
-    
-
 });
