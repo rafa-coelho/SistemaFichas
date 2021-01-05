@@ -19,6 +19,32 @@ module.exports = (app) => {
             return res.status(404).send(resp);
         }
 
+        const itens = await Item.Get(`personagem = '${params.id}'`)
+        personagem.inventario = {
+            peso: itens.reduce((a, b) => {
+                return a + (parseFloat(b.peso) * b.quantidade)
+            }, 0),
+            ataques: itens.filter(item => [2, 3].includes(item.tipo)).sort((a, b) => {
+                if (a.tipo > b.tipo) {
+                    return 1;
+                }
+                if (a.tipo < b.tipo) {
+                    return -1;
+                }
+                return 0;
+            }),
+            itens: itens.filter(item => [1, 2].includes(item.tipo)).sort((a, b) => {
+                if (a.tipo < b.tipo) {
+                    return 1;
+                }
+                if (a.tipo > b.tipo) {
+                    return -1;
+                }
+                return 0;
+            }),
+        };
+
+
         resp.status = 1;
         resp.data = personagem;
         res.send(resp);

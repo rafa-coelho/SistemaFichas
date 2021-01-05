@@ -490,7 +490,33 @@ module.exports = {
             id: '2c56c88e-4eee-11eb-a2b0-595becf0182e',
             personagem: '4c5d77da-4e0a-11eb-ae93-0242ac130002',
             tipo: 1
+        },
+
+
+        {
+            nome: 'Repreensão Infernal',
+            peso: 0,
+            tipo: 3,
+            dano: '1d8+3',
+            personagem: '4c5d74c4-4e0a-11eb-ae93-0242ac130002',
+            id: '51387a00-4ef2-11eb-88eb-f5e15d2b9a7a'
+        },
+        {
+            nome: 'Sleep',
+            tipo: 3,
+            dano: '5d8',
+            personagem: '4c5d77da-4e0a-11eb-ae93-0242ac130002',
+            id: '51387a01-4ef2-11eb-88eb-f5e15d2b9a7a'
+        },
+        {
+            nome: 'ThunderWave',
+            tipo: 3,
+            dano: '2d8',
+            personagem: '4c5d77da-4e0a-11eb-ae93-0242ac130002',
+            id: '51387a02-4ef2-11eb-88eb-f5e15d2b9a7a'
         }
+
+
     ]
 };
 
