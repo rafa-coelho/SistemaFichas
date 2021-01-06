@@ -53,7 +53,7 @@ module.exports = (app) => {
                     }
                     return 0;
                 }),
-                itens: itens.filter(item => [1, 2].includes(item.tipo)).sort((a, b) => {
+                itens: itens.filter(item => [1].includes(item.tipo)).sort((a, b) => {
                     if (a.tipo < b.tipo) {
                         return 1;
                     }

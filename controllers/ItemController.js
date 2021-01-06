@@ -1,5 +1,33 @@
 module.exports = (app) => {
 
+    app.post(`/item`, async (req, res) => {
+        const { body } = req;
+        const resp = {
+            status: 0,
+            data: null,
+            errors: [],
+            msg: ''
+        };
+
+        const data = {
+            id: Util.generateId(),
+            ...body
+        };
+
+        const create = await Item.Create(data);
+        if(create.status !== 1){
+            resp.errors.push({
+                msg: "Não foi possivel inserir",
+            });
+
+            return res.status(500).send(resp);
+        }
+
+        resp.status = 1;
+        resp.msg = "Item criado com sucesso";
+        res.send(resp);
+    });
+
     app.put(`/item/:id`, async (req, res) => {
         const { params, body } = req;
         const resp = {

@@ -17,112 +17,240 @@
 
 <body>
 
+    <nav class="navbar" style="background-color: #BD3424; height: 50px">
+
+
+    </nav>
+
     <div class="container">
-        
+
         <div class="tab-content" style="margin-bottom: 50px;">
-    
+
             <div class="tab-pane active" id="geral" role="tabpanel" aria-labelledby="home-tab">
                 <div class="container-fluid">
-    
-                    <div class="row" style="padding-top: 1em;">
-    
+
+                    <div class="row d-flex justify-content-center" style="padding-top: 1em;">
+
                         <div class="col-4 slot" style="text-align: center;color:#BD3424;">
                             <h4 style="font-weight: bold;">HP</h4>
                             <p name="HP" id="hp" class="parametro" style="font-size: 1.2em; margin-top: -5px;"></p>
                         </div>
-    
+
                         <div class="col-4 slot" style="text-align: center;color:#BD3424;">
                             <h4 style="font-weight: bold;">Sanidade</h4>
-                            <p name="Sanidade" id="sanidade" class="parametro" style="font-size: 1.2em; margin-top: -5px;">
+                            <p name="Sanidade" id="sanidade" class="parametro"
+                                style="font-size: 1.2em; margin-top: -5px;">
                             </p>
                         </div>
-    
-                        <div class="col-4 slot" style="text-align: center;color:#BD3424;">
-                            <h4 style="font-weight: bold;">Munição</h4>
-                            <p name="Munição" id="municao" class="parametro" style="font-size: 1.2em; margin-top: -5px;">0/0
-                            </p>
-                        </div>
-    
-    
-    
+
                     </div>
-    
+
                 </div>
-    
+
                 <div class="container-fluid mobile-card-container">
                     <div class="row text-center flex-nowrap flex-sm-wrap">
-    
+
                         <div class="col-3 ball text-center atributo">
                             <div class="card-background forca">
                                 <p class="mt-3 valor-atributo" atibuto="forca"></p>
                             </div>
                             <h5 class="nome-atributo">Força</h5>
                         </div>
-    
+
                         <div class="col-3 ball text-center atributo">
                             <div class="card-background destreza">
                                 <p class="mt-3 valor-atributo" atibuto="destreza"></p>
                             </div>
                             <h5 class="nome-atributo">Destreza</h5>
                         </div>
-    
+
                         <div class="col-3 ball text-center atributo">
                             <div class="card-background constituicao">
                                 <p class="mt-3 valor-atributo" atibuto="constituicao"></p>
                             </div>
                             <h5 class="nome-atributo">Constituição</h5>
                         </div>
-    
+
                         <div class="col-3 ball text-center atributo">
                             <div class="card-background inteligencia">
                                 <p class="mt-3 valor-atributo" atibuto="inteligencia"></p>
                             </div>
                             <h5 class="nome-atributo">Inteligência</h5>
                         </div>
-    
+
                         <div class="col-3 ball text-center atributo">
                             <div class="card-background sabedoria">
                                 <p class="mt-3 valor-atributo" atibuto="sabedoria"></p>
                             </div>
                             <h5 class="nome-atributo">Sabedoria</h5>
                         </div>
-    
+
                         <div class="col-3 ball text-center atributo">
                             <div class="card-background carisma">
                                 <p class="mt-3 valor-atributo" atibuto="carisma"></p>
                             </div>
                             <h5 class="nome-atributo">Carisma</h5>
                         </div>
-    
+
                         <div class="col-3 ball text-center atributo">
                             <div class="card-background sanidade">
                                 <p class="mt-3 valor-atributo" atibuto="sanidade"></p>
                             </div>
                             <h5 class="nome-atributo">Sanidade</h5>
                         </div>
-    
+
                     </div>
-    
+
                 </div>
-    
-                <div class="container p-0">
-                    <ul class="list-group ataques">
-                    </ul>
+
+                <div class="container-fluid p-0">
+                    <div class="row p-2">
+
+                        <div class="col-6">
+                            <h4 style="font-weight: bold;color:#BD3424;">Armas/Magias</h4>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn pull-right adicionar-ataque"
+                                style="background-color: #BD3424;color:#FEECC8;">
+                                +
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Dano</th>
+                                <th scope="col" style="text-align: right;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="ataques">
+
+                        </tbody>
+                    </table>
+
                 </div>
+
+                <div class="modal fade bd-example-modal-sm text-center" id="editarAtaqueModal" tabindex="-1"
+                    role="dialog" aria-labelledby="editarAtaqueModal" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Editar Ataque</h4>
+                            </div>
+                            <form id="editarAtaqueForm">
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">Nome</label>
+                                        <input required type="text" class="form-control nome">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Dano</label>
+                                        <input required type="text" class="form-control dano">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Tipo</label>
+                                        <select required class="form-control tipo">
+                                            <option disabled value=""> -- Selecione -- </option>
+                                            <option value="2">Arma</option>
+                                            <option value="3">Magia</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Peso</label>
+                                        <input type="number" class="form-control peso">
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-danger excluir">Excluir</button>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade bd-example-modal-sm text-center" id="novoAtaqueModal" tabindex="-1" role="dialog"
+                    aria-labelledby="novoAtaqueModal" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Novo Ataque</h4>
+                            </div>
+                            <form id="novoAtaqueForm">
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">Nome</label>
+                                        <input required type="text" class="form-control nome">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Dano</label>
+                                        <input required type="text" class="form-control dano">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Tipo</label>
+                                        <select required class="form-control tipo">
+                                            <option disabled selected value=""> -- Selecione -- </option>
+                                            <option value="2">Arma</option>
+                                            <option value="3">Magia</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Peso</label>
+                                        <input type="number" class="form-control peso">
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
-    
+
             <div class="tab-pane" id="pericias" role="tabpanel" aria-labelledby="home-tab">
-    
+
                 <div class="container p-0">
+                    <div class="row p-2">
+
+                        <div class="col-6">
+                            <h4 style="font-weight: bold;color:#BD3424;">Perícias</h4>
+                        </div>
+
+                    </div>
                     <ul class="list-group lista-pericias">
-    
+
                     </ul>
                 </div>
-    
+
             </div>
-    
+
             <div class="tab-pane" id="inventario" role="tabpanel" aria-labelledby="home-tab">
                 <div class="container-fluid pt-2">
+                    <div class="row p-2">
+
+                        <div class="col-6">
+                            <h4 style="font-weight: bold;color:#BD3424;">Itens</h4>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn pull-right adicionar-item"
+                                style="background-color: #BD3424;color:#FEECC8;">
+                                +
+                            </button>
+                        </div>
+
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -135,16 +263,47 @@
                         <tbody class="lista-inventario">
                         </tbody>
                     </table>
-    
+
+                    <div class="modal fade bd-example-modal-sm text-center" id="adicionarItemModal" tabindex="-1"
+                        role="dialog" aria-labelledby="adicionarItemModal" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+
+                                <form id="adicionarItemForm">
+                                    <div class="modal-body">
+                                        <h4 id="nomeItem">HP</h4>
+
+                                        <div class="form-group">
+                                            <label for="itemNome" class="col-form-label">Nome</label>
+                                            <input type="text" required class="form-control nome">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="itemQuantidade" class="col-form-label">Quantidade</label>
+                                            <input type="number" required class="form-control quantidade" value=1>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="itemPeso" class="col-form-label">Peso</label>
+                                            <input type="number" required class="form-control peso" value=0>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal fade bd-example-modal-sm text-center" id="itemModal" tabindex="-1" role="dialog"
                         aria-labelledby="itemModal" aria-hidden="true">
                         <div class="modal-dialog modal-sm">
                             <div class="modal-content">
-    
+
                                 <form id="itemForm">
                                     <div class="modal-body">
                                         <h4 id="nomeItem">HP</h4>
-    
+
                                         <div class="form-group">
                                             <label for="itemNome" class="col-form-label">Nome</label>
                                             <input type="text" class="form-control" id="itemNome">
@@ -157,57 +316,109 @@
                                             <label for="itemPeso" class="col-form-label">Peso</label>
                                             <input type="number" class="form-control" id="itemPeso">
                                         </div>
-    
+
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-danger excluir">Excluir</button>
                                         <button type="submit" class="btn btn-primary">Enviar</button>
                                     </div>
                                 </form>
-    
+
                             </div>
                         </div>
                     </div>
-    
+
                 </div>
             </div>
-    
+
+            <div class="tab-pane" id="dados" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container-fluid pt-2">
+                    <div class="row p-2">
+                        <div class="col-6">
+
+                            <h4 style="font-weight: bold;color:#BD3424;">Dados</h4>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+
+                        <div class="col-6 p-2">
+                            <button class="btn btn-lg dado" formula="1d20" style="background-color: #BD3424; color:#FEECC8; width: 100%">
+                                D20
+                            </button>
+                        </div>
+                        <div class="col-6 p-2">
+                            <button class="btn btn-lg dado" formula="1d4" style="background-color: #BD3424; color:#FEECC8; width: 100%">
+                                D4
+                            </button>
+                        </div>
+                        <div class="col-6 p-2">
+                            <button class="btn btn-lg dado" formula="1d6" style="background-color: #BD3424; color:#FEECC8; width: 100%">
+                                D6
+                            </button>
+                        </div>
+                        <div class="col-6 p-2">
+                            <button class="btn btn-lg dado" formula="1d8" style="background-color: #BD3424; color:#FEECC8; width: 100%">
+                                D8
+                            </button>
+                        </div>
+                        <div class="col-6 p-2">
+                            <button class="btn btn-lg dado" formula="1d10" style="background-color: #BD3424; color:#FEECC8; width: 100%">
+                                D10
+                            </button>
+                        </div>
+                        <div class="col-6 p-2">
+                            <button class="btn btn-lg dado" formula="1d12" style="background-color: #BD3424; color:#FEECC8; width: 100%">
+                                D12
+                            </button>
+                        </div>
+                        <div class="col-6 p-2">
+                            <button class="btn btn-lg dado" formula="1d100" style="background-color: #BD3424; color:#FEECC8; width: 100%">
+                                D100
+                            </button>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+
             <div class="modal fade bd-example-modal-sm text-center" id="parametroModal" tabindex="-1" role="dialog"
                 aria-labelledby="parametroModal" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
-    
+
                         <form id="parametroForm">
                             <div class="modal-body">
                                 <h4 id="tituloParametro">HP</h4>
-    
+
                                 <div class="row">
-    
+
                                     <div class="col-2"></div>
                                     <div class="col-8">
                                         <input type="number" class="form-control" id="min" value="">
                                     </div>
-    
+
                                 </div>
-    
+
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Enviar</button>
                             </div>
                         </form>
-    
+
                     </div>
                 </div>
             </div>
-    
+
             <div class="modal fade bd-example-modal-sm text-center" id="rolagemModal" tabindex="-1" role="dialog"
                 aria-labelledby="rolagemModal" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
-    
+
                         <div class="modal-body">
                             <h2 class="modal-title text-center" id="tituloRolagem"></h2>
-    
+
                             <div id="rolagem" style="height: 100%;">
                                 <div class="col-md-12 text-center" style="height: 50px">
                                     <img src="/media/d20.png" alt="D20" height="50" class="img-responsive"
@@ -224,16 +435,16 @@
                     </div>
                 </div>
             </div>
-    
+
         </div>
     </div>
 
 
-    
+
     <footer class=" fixed-bottom" style="background-color: #BD3424; ">
-    
+
         <ul class="nav nav-pills nav-fill">
-    
+
             <li class="nav-item">
                 <a class="nav-link active" href="#geral" data-bs-toggle="tab" role="tab" aria-controls="geral"
                     aria-selected="true">Geral</a>
@@ -246,9 +457,12 @@
                 <a class="nav-link" href="#inventario" data-bs-toggle="tab" role="tab"
                     aria-controls="inventario">Inventário</a>
             </li>
-    
+            <li class="nav-item">
+                <a class="nav-link" href="#dados" data-bs-toggle="tab" role="tab" aria-controls="dados">Dados</a>
+            </li>
+
         </ul>
-    
+
     </footer>
 </body>
 
@@ -477,16 +691,17 @@
 
                     let htmlAtaque = '';
                     for (const ataque of pers.inventario.ataques) {
-                        htmlAtaque += `<li class="list-group-item">`;
-                        htmlAtaque += `     <div class="row">`;
-                        htmlAtaque += `         <div class="col-8 d-flex justify-content-center align-items-center">`;
-                        htmlAtaque += `             <span style="color: #BD3424;font-weight: bold;font-size: 20px;">${ataque.nome}</h4>`;
-                        htmlAtaque += `         </div>`;
-                        htmlAtaque += `         <div class="col-4 pull-right">`;
-                        htmlAtaque += `             <button formula="${ataque.dano}" class="ataque btn col-12" style="background-color: #BD3424;color: #FEECC8">Atacar</button>`;
-                        htmlAtaque += `         </div>`;
-                        htmlAtaque += `     </div>`;
-                        htmlAtaque += `</li>`;
+
+                        htmlAtaque += `<tr>`;
+                        htmlAtaque += `    <td>${ataque.nome}</td>`;
+                        htmlAtaque += `    <td>${ataque.dano}</td>`;
+                        htmlAtaque += `    <td class="pull-right">`;
+                        htmlAtaque += `        <button formula="${ataque.dano}" class="ataque btn" style="background-color: #BD3424;color: #FEECC8">Dano</button>`;
+                        htmlAtaque += `        <button ataqueTipo="${ataque.tipo}" ataqueNome="${ataque.nome}" ataqueId="${ataque.id}" ataqueDano="${ataque.dano}" ataquePeso="${ataque.peso}" class="editar-ataque btn" style="background-color: #BD3424;color: #FEECC8">`;
+                        htmlAtaque += `            <i ataqueTipo="${ataque.tipo}" ataqueNome="${ataque.nome}" ataqueId="${ataque.id}" ataqueDano="${ataque.dano}" ataquePeso="${ataque.peso}" class="fa fa-pencil"></i>`;
+                        htmlAtaque += `        </button>`;
+                        htmlAtaque += `    </td>`;
+                        htmlAtaque += `</tr>`;
                     }
 
                     $(".ataques").html(htmlAtaque);
@@ -622,7 +837,7 @@
             });
         });
 
-        $("body").on("click", ".ataque", (e) => {
+        $("body").on("click", ".ataque, .dado", (e) => {
 
             $.ajax({
                 url: `/rolagem/rolar/${$(e.target).attr("formula")}?personagem=${personagem}`,
@@ -630,7 +845,8 @@
                 complete: (res) => {
                     const response = res.responseJSON;
                     if (response.status === 1) {
-                        $("#rolagemModal #tituloRolagem").html(`Dano de Ataque`);
+                        //`Dano de Ataque`
+                        $("#rolagemModal #tituloRolagem").html($(e.target).text());
                         $("#rolagemModal #valorRolagem").text(response.data.valor);
                         $("#rolagemModal #resultadoRolagem").text(response.data.tipo);
                         $("#rolagemModal").modal('show');
@@ -647,6 +863,7 @@
             $("#itemPeso").val(itemBtn.attr("itemPeso").replace(/\D+/g, ''));
             $("#itemQuantidade").val(itemBtn.attr("itemQuantidade").replace(/\D+/g, ''));
             $("#itemModal").modal('show');
+            $("#itemNome").focus();
 
             $("#itemForm").on("submit", (e) => {
                 e.preventDefault();
@@ -689,6 +906,129 @@
                 }
             });
 
+        });
+
+        $("body").on("click", "button.adicionar-ataque", (e) => {
+            $("#novoAtaqueModal").modal('show');
+            $("#novoAtaqueModal .nome").focus();
+
+            $("#novoAtaqueForm").on("submit", (eForm) => {
+                eForm.preventDefault();
+
+                const data = {
+                    nome: $("#novoAtaqueModal .nome").val(),
+                    peso: $("#novoAtaqueModal .peso").val(),
+                    tipo: $("#novoAtaqueModal .tipo").val(),
+                    dano: $("#novoAtaqueModal .dano").val(),
+                    personagem: personagem,
+                };
+
+                $.ajax({
+                    url: `/item`,
+                    method: 'POST',
+                    dataType: "JSON",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify(data),
+                    complete: (res) => {
+                        if (res.responseJSON.status === 1) {
+                            getPers();
+                            $("#novoAtaqueModal").modal('hide');
+                        }
+                    }
+                });
+
+            });
+        });
+
+        $("body").on("click", "button.editar-ataque", (e) => {
+            const itemBtn = $(e.target);
+
+            $("#editarAtaqueModal .nome").val(itemBtn.attr("ataqueNome"));
+            $("#editarAtaqueModal .peso").val(itemBtn.attr("ataquePeso").replace(/\D+/g, ''));
+            $("#editarAtaqueModal .dano").val(itemBtn.attr("ataqueDano"));
+            $("#editarAtaqueModal .tipo").val(itemBtn.attr("ataqueTipo"));
+            $("#editarAtaqueModal").modal('show');
+            $("#editarAtaqueModal .nome").focus();
+
+            $("#editarAtaqueForm").on("submit", (e) => {
+                e.preventDefault();
+
+                const data = {
+                    nome: $("#editarAtaqueModal .nome").val(),
+                    peso: $("#editarAtaqueModal .peso").val(),
+                    tipo: $("#editarAtaqueModal .tipo").val(),
+                    dano: $("#editarAtaqueModal .dano").val()
+                };
+
+                $.ajax({
+                    url: `/item/${itemBtn.attr("ataqueId")}`,
+                    method: 'PUT',
+                    dataType: "JSON",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify(data),
+                    complete: (res) => {
+                        if (res.responseJSON.status === 1) {
+                            getPers();
+                            $("#editarAtaqueModal").modal('hide');
+                        }
+                    }
+                });
+            });
+
+            $("#editarAtaqueModal .excluir").on("click", (e) => {
+                if (confirm("Deseja mesmo excluir?")) {
+                    $.ajax({
+                        url: `/item/${itemBtn.attr("ataqueId")}`,
+                        method: "DELETE",
+                        complete: (res) => {
+                            if (res.responseJSON.status === 1) {
+                                getPers();
+                                $("#editarAtaqueModal").modal('hide');
+                            }
+                        }
+                    });
+                }
+            });
+
+
+        });
+
+        $("body").on("click", "button.adicionar-item", (e) => {
+            $("#adicionarItemModal").modal('show');
+            $("#adicionarItemModal .nome").focus();
+
+            $("#adicionarItemForm").on("submit", (eForm) => {
+                eForm.preventDefault();
+
+                const data = {
+                    nome: $("#adicionarItemModal .nome").val(),
+                    peso: $("#adicionarItemModal .peso").val(),
+                    tipo: 1,
+                    quantidade: $("#adicionarItemModal .quantidade").val(),
+                    personagem: personagem,
+                };
+
+                $.ajax({
+                    url: `/item`,
+                    method: 'POST',
+                    dataType: "JSON",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify(data),
+                    complete: (res) => {
+                        if (res.responseJSON.status === 1) {
+                            getPers();
+                            $("#adicionarItemModal").modal('hide');
+                        }
+                    }
+                });
+
+            });
         });
 
     });

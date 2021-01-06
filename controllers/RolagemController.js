@@ -146,7 +146,7 @@ module.exports = (app) => {
             data: new Date() / 1000 | 0
         };
 
-        const sobra = 20 - valorRolagem;
+        const sobra = 20 - (valorRolagem);
         if (valorRolagem === 1) {
             data.tipo = "Critico";
         } else if (sobra > valorRolagem + modificador) {
