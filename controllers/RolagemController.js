@@ -217,4 +217,86 @@ module.exports = (app) => {
         res.send(resp);
     });
 
+    app.get(`/rolagem/iniciativa`, async (req, res) => {
+        const { query, params } = req;
+        const resp = {
+            status: 0,
+            data: null,
+            errors: [],
+            msg: ''
+        };
+
+        const personagem = await Personagem.GetFirst(`id = '${query.personagem}'`);
+
+        if (!personagem) {
+            resp.errors.push({
+                msg: "Personagem não encontrado"
+            });
+            return res.status(404).send(resp);
+        }
+
+        const modificador = Personagem.calcularModificador(personagem.destreza);
+
+
+        const roll = new DiceRoll(`1d20+${modificador}`);
+        let valorRolagem = roll.total;
+
+        const data = {
+            id: Util.generateId(),
+            personagem: query.personagem,
+            atributo: "destreza",
+            titulo: "Iniciativa",
+            valor: valorRolagem,
+            modificador: modificador,
+            data: new Date() / 1000 | 0
+        };
+
+        const createRolagem = await Rolagem.Create(data);
+        if (createRolagem.status !== 1) {
+            resp.errors.push({
+                msg: "Erro ao rolar os dados"
+            });
+            return res.status(500).send(resp);
+        }
+
+        await Iniciativa.Delete(`personagem = '${query.personagem}'`);
+
+        const createIniciativa = await Iniciativa.Create({
+            id: Util.generateId(),
+            personagem: query.personagem,
+            valor: valorRolagem
+        });
+
+        if (createIniciativa.status !== 1) {
+            resp.errors.push({
+                msg: "Erro ao gravar iniciativa"
+            });
+            return res.status(500).send(resp);
+        }
+
+        resp.status = 1;
+        resp.data = data;
+        res.send(resp);
+    });
+
+    app.delete(`/rolagem/iniciativa`, async (req, res) => {
+        const resp = {
+            status: 0,
+            errors: [],
+            msg: ''
+        };
+        
+        const del = await Iniciativa.Delete();
+        if(del.status !== 1){
+            resp.errors.push({
+                msg: "Erro ao limpar iniciativa"
+            });
+            return res.status(500).send(resp);
+        }
+
+        resp.status = 1;
+        resp.msg = "Iniciativa Limpa";
+        res.send(resp);
+    });
+
 };
