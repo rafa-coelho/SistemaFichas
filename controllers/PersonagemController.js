@@ -1,8 +1,27 @@
 
 module.exports = (app) => {
 
+    app.get(`/personagem`, async (req, res) => {
+        const { query } = req;
+        const resp = {
+            status: 0,
+            data: null,
+            errors: []
+        };
+
+        const where = query.where || "";
+
+        
+        const personagens = await Personagem.Get(where);
+
+
+        resp.status = 1;
+        resp.data = personagens;
+        res.send(resp);
+    });
+
     app.get(`/personagem/:id`, async (req, res) => {
-        const { params } = req;
+        const { params, query } = req;
         const resp = {
             status: 0,
             data: null,
@@ -19,31 +38,32 @@ module.exports = (app) => {
             return res.status(404).send(resp);
         }
 
-        const itens = await Item.Get(`personagem = '${params.id}'`)
-        personagem.inventario = {
-            peso: itens.reduce((a, b) => {
-                return a + (parseFloat(b.peso) * b.quantidade)
-            }, 0),
-            ataques: itens.filter(item => [2, 3].includes(item.tipo)).sort((a, b) => {
-                if (a.tipo > b.tipo) {
-                    return 1;
-                }
-                if (a.tipo < b.tipo) {
-                    return -1;
-                }
-                return 0;
-            }),
-            itens: itens.filter(item => [1, 2].includes(item.tipo)).sort((a, b) => {
-                if (a.tipo < b.tipo) {
-                    return 1;
-                }
-                if (a.tipo > b.tipo) {
-                    return -1;
-                }
-                return 0;
-            }),
-        };
-
+        if(query.completo){
+            const itens = await Item.Get(`personagem = '${params.id}'`)
+            personagem.inventario = {
+                peso: itens.reduce((a, b) => {
+                    return a + (parseFloat(b.peso) * b.quantidade)
+                }, 0),
+                ataques: itens.filter(item => [2, 3].includes(item.tipo)).sort((a, b) => {
+                    if (a.tipo > b.tipo) {
+                        return 1;
+                    }
+                    if (a.tipo < b.tipo) {
+                        return -1;
+                    }
+                    return 0;
+                }),
+                itens: itens.filter(item => [1, 2].includes(item.tipo)).sort((a, b) => {
+                    if (a.tipo < b.tipo) {
+                        return 1;
+                    }
+                    if (a.tipo > b.tipo) {
+                        return -1;
+                    }
+                    return 0;
+                }),
+            };
+        }
 
         resp.status = 1;
         resp.data = personagem;

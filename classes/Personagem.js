@@ -2,7 +2,7 @@ class Personagem extends Classes
 {
 
     static table = 'personagem';
-    static fields = [ 'id', 'nome', 'raca', 'classe', 'nivel', 'hp', 'hp_maximo', 'sanidade', 'sanidade_maxima', 'forca', 'destreza', 'constituicao', 'inteligencia', 'sabedoria', 'carisma', 'dado_vida' ];
+    static fields = [ 'id', 'nome', 'raca', 'classe', 'nivel', 'hp', 'hp_maximo', 'sanidade', 'sanidade_maxima', 'forca', 'destreza', 'constituicao', 'inteligencia', 'sabedoria', 'carisma', 'dado_vida', 'npc' ];
 
     static calcularModificador = (valor) => {
         let repeat = [ ];

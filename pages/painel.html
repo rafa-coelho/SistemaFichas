@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        
+        <div class="tab-content" style="margin-bottom: 50px;">
+    
+            <div class="tab-pane active" id="geral" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container-fluid">
+    
+                    <div class="row" style="padding-top: 1em;">
+    
+                        <div class="col-4 slot" style="text-align: center;color:#BD3424;">
+                            <h4 style="font-weight: bold;">HP</h4>
+                            <p name="HP" id="hp" class="parametro" style="font-size: 1.2em; margin-top: -5px;"></p>
+                        </div>
+    
+                        <div class="col-4 slot" style="text-align: center;color:#BD3424;">
+                            <h4 style="font-weight: bold;">Sanidade</h4>
+                            <p name="Sanidade" id="sanidade" class="parametro" style="font-size: 1.2em; margin-top: -5px;">
+                            </p>
+                        </div>
+    
+                        <div class="col-4 slot" style="text-align: center;color:#BD3424;">
+                            <h4 style="font-weight: bold;">Munição</h4>
+                            <p name="Munição" id="municao" class="parametro" style="font-size: 1.2em; margin-top: -5px;">0/0
+                            </p>
+                        </div>
+    
+    
+    
+                    </div>
+    
+                </div>
+    
+                <div class="container-fluid mobile-card-container">
+                    <div class="row text-center flex-nowrap flex-sm-wrap">
+    
+                        <div class="col-3 ball text-center atributo">
+                            <div class="card-background forca">
+                                <p class="mt-3 valor-atributo" atibuto="forca"></p>
+                            </div>
+                            <h5 class="nome-atributo">Força</h5>
+                        </div>
+    
+                        <div class="col-3 ball text-center atributo">
+                            <div class="card-background destreza">
+                                <p class="mt-3 valor-atributo" atibuto="destreza"></p>
+                            </div>
+                            <h5 class="nome-atributo">Destreza</h5>
+                        </div>
+    
+                        <div class="col-3 ball text-center atributo">
+                            <div class="card-background constituicao">
+                                <p class="mt-3 valor-atributo" atibuto="constituicao"></p>
+                            </div>
+                            <h5 class="nome-atributo">Constituição</h5>
+                        </div>
+    
+                        <div class="col-3 ball text-center atributo">
+                            <div class="card-background inteligencia">
+                                <p class="mt-3 valor-atributo" atibuto="inteligencia"></p>
+                            </div>
+                            <h5 class="nome-atributo">Inteligência</h5>
+                        </div>
+    
+                        <div class="col-3 ball text-center atributo">
+                            <div class="card-background sabedoria">
+                                <p class="mt-3 valor-atributo" atibuto="sabedoria"></p>
+                            </div>
+                            <h5 class="nome-atributo">Sabedoria</h5>
+                        </div>
+    
+                        <div class="col-3 ball text-center atributo">
+                            <div class="card-background carisma">
+                                <p class="mt-3 valor-atributo" atibuto="carisma"></p>
+                            </div>
+                            <h5 class="nome-atributo">Carisma</h5>
+                        </div>
+    
+                        <div class="col-3 ball text-center atributo">
+                            <div class="card-background sanidade">
+                                <p class="mt-3 valor-atributo" atibuto="sanidade"></p>
+                            </div>
+                            <h5 class="nome-atributo">Sanidade</h5>
+                        </div>
+    
+                    </div>
+    
+                </div>
+    
+                <div class="container p-0">
+                    <ul class="list-group ataques">
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="tab-pane" id="pericias" role="tabpanel" aria-labelledby="home-tab">
+    
+                <div class="container p-0">
+                    <ul class="list-group lista-pericias">
+    
+                    </ul>
+                </div>
+    
+            </div>
+    
+            <div class="tab-pane" id="inventario" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container-fluid pt-2">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Item</th>
+                                <th scope="col">Quantidade</th>
+                                <th scope="col">Peso</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="lista-inventario">
+                        </tbody>
+                    </table>
+    
+                    <div class="modal fade bd-example-modal-sm text-center" id="itemModal" tabindex="-1" role="dialog"
+                        aria-labelledby="itemModal" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+    
+                                <form id="itemForm">
+                                    <div class="modal-body">
+                                        <h4 id="nomeItem">HP</h4>
+    
+                                        <div class="form-group">
+                                            <label for="itemNome" class="col-form-label">Nome</label>
+                                            <input type="text" class="form-control" id="itemNome">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="itemQuantidade" class="col-form-label">Quantidade</label>
+                                            <input type="number" class="form-control" id="itemQuantidade">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="itemPeso" class="col-form-label">Peso</label>
+                                            <input type="number" class="form-control" id="itemPeso">
+                                        </div>
+    
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-danger excluir">Excluir</button>
+                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                    </div>
+                                </form>
+    
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+    
+            <div class="modal fade bd-example-modal-sm text-center" id="parametroModal" tabindex="-1" role="dialog"
+                aria-labelledby="parametroModal" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+    
+                        <form id="parametroForm">
+                            <div class="modal-body">
+                                <h4 id="tituloParametro">HP</h4>
+    
+                                <div class="row">
+    
+                                    <div class="col-2"></div>
+                                    <div class="col-8">
+                                        <input type="number" class="form-control" id="min" value="">
+                                    </div>
+    
+                                </div>
+    
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </div>
+                        </form>
+    
+                    </div>
+                </div>
+            </div>
+    
+            <div class="modal fade bd-example-modal-sm text-center" id="rolagemModal" tabindex="-1" role="dialog"
+                aria-labelledby="rolagemModal" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+    
+                        <div class="modal-body">
+                            <h2 class="modal-title text-center" id="tituloRolagem"></h2>
+    
+                            <div id="rolagem" style="height: 100%;">
+                                <div class="col-md-12 text-center" style="height: 50px">
+                                    <img src="/media/d20.png" alt="D20" height="50" class="img-responsive"
+                                        style="margin-top: 10px">
+                                    <h4 style="margin-top: -37px;" class="gold" id="valorRolagem">
+                                        20
+                                    </h4>
+                                </div>
+                                <div class="col-md-12 text-center" style="height: 30px;">
+                                    <h5 id="resultadoRolagem" class="gold"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+
+
+    
+    <footer class=" fixed-bottom" style="background-color: #BD3424; ">
+    
+        <ul class="nav nav-pills nav-fill">
+    
+            <li class="nav-item">
+                <a class="nav-link active" href="#geral" data-bs-toggle="tab" role="tab" aria-controls="geral"
+                    aria-selected="true">Geral</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#pericias" data-bs-toggle="tab" role="tab"
+                    aria-controls="pericias">Perícias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#inventario" data-bs-toggle="tab" role="tab"
+                    aria-controls="inventario">Inventário</a>
+            </li>
+    
+        </ul>
+    
+    </footer>
+</body>
+
+
+</html>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<style>
+    * {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .gold {
+        color: #000;
+        font-weight: bold;
+        text-shadow: 0px 0px 8px gold;
+    }
+
+    body {
+        background: #FEECC8;
+    }
+
+    .ball {
+        margin-right: 20px;
+        padding: 0px;
+    }
+
+    .ball:first-child {
+        margin-left: 10px;
+    }
+
+    .mobile-card-container {
+        display: block;
+        border-top: 1px solid #BD3424;
+        border-bottom: 1px solid #BD3424;
+        margin-bottom: 5px;
+    }
+
+    @media only screen and (max-width : 576px) {
+        .mobile-card-container>.row {
+            overflow-x: auto;
+        }
+
+        .mobile-card-container>.row::-webkit-scrollbar {
+            width: 0px;
+            background: transparent !important;
+            /* make scrollbar transparent */
+        }
+    }
+
+    .card-background {
+        background-color: #BD3424;
+        border-radius: 50%;
+        margin: 16px 5px;
+        width: 90px;
+        height: 90px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-box-shadow: 0px 2px 4px 1px rgba(0, 51, 102, 0.1);
+        -moz-box-shadow: 0px 2px 4px 1px rgba(0, 51, 102, 0.1);
+        box-shadow: 0px 2px 4px 1px rgba(0, 51, 102, 0.1);
+        padding-top: 5%;
+    }
+
+    .card-background p {
+        cursor: pointer;
+    }
+
+    .valor-atributo {
+        color: #FEECC8;
+        font-size: 2.5em;
+        font-weight: bold;
+    }
+
+    .nome-atributo {
+        font-size: 18px;
+    }
+
+    .stats {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        padding-top: 22px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .circulo {
+        width: 80px;
+        height: 80px;
+        background-color: #fff;
+        border: 2px solid black;
+        border-radius: 50%;
+        margin-left: 20px;
+        margin-top: 10px;
+        text-align: center;
+        z-index: 999;
+    }
+
+    #token {
+        border-radius: 0 0 50% 50%;
+    }
+
+    .row div {
+        padding: 0px;
+    }
+
+    .progress {
+        background-color: #fff;
+    }
+
+    .list-group-item {
+        background-color: #FEECC8;
+        border: 1px solid #BD3424;
+        border-radius: 0px 0px;
+    }
+
+
+    .nav-item a,
+    .nav-item a:disabled {
+        color: #FEECC8;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .nav-item .active {
+        color: #D3776D;
+        background-color: #BD3424 !important;
+    }
+
+    .footer {
+        position: fixed;
+        height: 50px;
+        line-height: 35px;
+        bottom: 0;
+        width: 100%;
+    }
+</style>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const personagem = urlParams.get('personagem');
+
+    const pericias = [
+        { nome: "Acrobacia", label: "acrobacia", atributo: "destreza" },
+        { nome: "Arcanismo", label: "arcanismo", atributo: "inteligencia" },
+        { nome: "Atletismo", label: "atletismo", atributo: "forca" },
+        { nome: "Atuação", label: "atuacaoo", atributo: "carisma" },
+        { nome: "Blefar", label: "blefar", atributo: "carisma" },
+        { nome: "Furtividade", label: "furtividade", atributo: "destreza" },
+        { nome: "História", label: "historia", atributo: "inteligencia" },
+        { nome: "Intimidação", label: "intimidacao", atributo: "carisma" },
+        { nome: "Intuição", label: "intuicao", atributo: "sabedoria" },
+        { nome: "Investigação", label: "investigacao", atributo: "inteligencia" },
+        { nome: "Lidar com Animais", label: "lidar-com-animais", atributo: "sabedoria" },
+        { nome: "Medicina", label: "medicina", atributo: "sabedoria" },
+        { nome: "Natureza", label: "natureza", atributo: "inteligencia" },
+        { nome: "Percepção", label: "percepcao", atributo: "sabedoria" },
+        { nome: "Persuasão", label: "persuasao", atributo: "carisma" },
+        { nome: "Prestidigitação", label: "prestidigitacao", atributo: "destreza" },
+        { nome: "Religião", label: "religiao", atributo: "inteligencia" },
+        { nome: "Sobrevivência", label: "sobrevivencia", atributo: "sabedoria" },
+    ];
+
+    const getPers = () => {
+
+        $.ajax({
+            url: `/personagem/${personagem}?completo=true`,
+            method: 'GET',
+            complete: (res) => {
+                const response = res.responseJSON;
+                if (response.status === 1) {
+                    const pers = response.data;
+
+                    $("#nome").text(pers.nome);
+                    $("#token").attr("src", `/media/${pers.id}.png`);
+
+                    $("#hp_bar").attr("style", `width: ${(pers.hp / pers.hp_maximo) * 100}%`);
+                    $("#hp_bar").attr("aria-valuemax", pers.hp_maximo);
+                    $("#hp_bar").attr("aria-valuenow", pers.hp);
+                    $("#hp_bar").text(`${pers.hp}/${pers.hp_maximo}`);
+
+                    $("#sanidade_bar").attr("style", `width: ${(pers.sanidade / pers.sanidade_maxima) * 100}%`);
+                    $("#sanidade_bar").attr("aria-valuemax", pers.sanidade_maxima);
+                    $("#sanidade_bar").attr("aria-valuenow", pers.sanidade);
+                    $("#sanidade_bar").text(`${pers.sanidade}/${pers.sanidade_maxima}`);
+
+                    $("#hp").text(`${pers.hp}/${pers.hp_maximo}`);
+                    $("#hp").attr("min", pers.hp);
+                    $("#hp").attr("max", pers.hp_maximo);
+
+                    $("#sanidade").text(`${pers.sanidade}/${pers.sanidade_maxima}`);
+                    $("#sanidade").attr("min", pers.sanidade);
+                    $("#sanidade").attr("max", pers.sanidade_maxima);
+
+                    $(`.atributo .forca p`).text(pers.forca);
+                    $(`.atributo .forca p`).attr("valor", pers.forca);
+                    $(`.atributo .forca p`).attr("atributo", 'forca');
+
+                    $(`.atributo .destreza p`).text(pers.destreza);
+                    $(`.atributo .destreza p`).attr("valor", pers.destreza);
+                    $(`.atributo .destreza p`).attr("atributo", 'destreza');
+
+                    $(`.atributo .constituicao p`).text(pers.constituicao);
+                    $(`.atributo .constituicao p`).attr("valor", pers.constituicao);
+                    $(`.atributo .constituicao p`).attr("atributo", 'constituicao');
+
+                    $(`.atributo .inteligencia p`).text(pers.inteligencia);
+                    $(`.atributo .inteligencia p`).attr("valor", pers.inteligencia);
+                    $(`.atributo .inteligencia p`).attr("atributo", 'inteligencia');
+
+                    $(`.atributo .sabedoria p`).text(pers.sabedoria);
+                    $(`.atributo .sabedoria p`).attr("valor", pers.sabedoria);
+                    $(`.atributo .sabedoria p`).attr("atributo", 'sabedoria');
+
+                    $(`.atributo .carisma p`).text(pers.carisma);
+                    $(`.atributo .carisma p`).attr("valor", pers.carisma);
+                    $(`.atributo .carisma p`).attr("atributo", 'carisma');
+
+                    $(`.atributo .sanidade p`).text(pers.sanidade);
+                    $(`.atributo .sanidade p`).attr("valor", pers.sanidade);
+                    $(`.atributo .sanidade p`).attr("atributo", 'sanidade');
+
+                    let htmlAtaque = '';
+                    for (const ataque of pers.inventario.ataques) {
+                        htmlAtaque += `<li class="list-group-item">`;
+                        htmlAtaque += `     <div class="row">`;
+                        htmlAtaque += `         <div class="col-8 d-flex justify-content-center align-items-center">`;
+                        htmlAtaque += `             <span style="color: #BD3424;font-weight: bold;font-size: 20px;">${ataque.nome}</h4>`;
+                        htmlAtaque += `         </div>`;
+                        htmlAtaque += `         <div class="col-4 pull-right">`;
+                        htmlAtaque += `             <button formula="${ataque.dano}" class="ataque btn col-12" style="background-color: #BD3424;color: #FEECC8">Atacar</button>`;
+                        htmlAtaque += `         </div>`;
+                        htmlAtaque += `     </div>`;
+                        htmlAtaque += `</li>`;
+                    }
+
+                    $(".ataques").html(htmlAtaque);
+
+
+                    let htmlInventario = '';
+                    for (const item of pers.inventario.itens) {
+                        htmlInventario += `<tr>`;
+                        htmlInventario += `    <td>${item.nome}</td>`;
+                        htmlInventario += `    <td>${item.quantidade}</td>`;
+                        htmlInventario += `    <td>${item.peso}kg</td>`;
+                        htmlInventario += `    <td>`;
+                        htmlInventario += `        <button itemNome="${item.nome}" itemId="${item.id}" itemQuantidade="${item.quantidade}" itemPeso="${item.peso}" class="btn btn-small btn-round editar-item" style="background-color: #BD3424; color: #FEECC8;">`;
+                        htmlInventario += `            <i itemNome="${item.nome}" itemId="${item.id}" itemQuantidade="${item.quantidade}" itemPeso="${item.peso}" class="fa fa-pencil"></i>`;
+                        htmlInventario += `        </button>`;
+                        htmlInventario += `    </td>`;
+                        htmlInventario += `</tr>`;
+
+                    }
+                    $(".lista-inventario").html(htmlInventario);
+
+                    let htmlPericia = '';
+
+                    for (const pericia of pericias) {
+                        htmlPericia += `<li class="list-group-item">`;
+                        htmlPericia += `     <div class="row">`;
+                        htmlPericia += `         <div class="col-8 d-flex justify-content-center align-items-center">`;
+                        htmlPericia += `             <span style="color: #BD3424;font-weight: bold;font-size: 20px;">${pericia.nome}</h4>`;
+                        htmlPericia += `         </div>`;
+                        htmlPericia += `         <div class="col-4 pull-right">`;
+                        htmlPericia += `             <button nome="${pericia.label}" class="pericia btn col-12" style="background-color: #BD3424;color: #FEECC8">Rolar</button>`;
+                        htmlPericia += `         </div>`;
+                        htmlPericia += `     </div>`;
+                        htmlPericia += `</li>`;
+
+                    }
+                    $(".lista-pericias").html(htmlPericia);
+
+
+
+                } else {
+                    document.location.href = '/';
+                }
+
+            }
+        });
+    };
+
+    const updatePers = (data) => {
+        $.ajax({
+            url: `/personagem/${personagem}`,
+            method: 'PUT',
+            dataType: "JSON",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify(data),
+            complete: (res) => {
+                if (res.responseJSON.status === 1) {
+                    getPers();
+                }
+            }
+        });
+    };
+
+
+    $(() => {
+
+        getPers();
+
+        $(".parametro").on("click", (e) => {
+            const nomeParametro = $(e.target).attr("id");
+            const tituloParametro = $(e.target).attr("name");
+            const minParametro = $(e.target).attr("min");
+            const maxParametro = $(e.target).attr("max");
+
+            $("#parametroModal #tituloParametro").text(tituloParametro);
+            $("#parametroModal #min").attr("name", nomeParametro);
+
+            $("#parametroModal").modal('show');
+
+        });
+
+        $("#parametroForm").on("submit", (e) => {
+            e.preventDefault();
+
+            const param = $("#parametroForm #min").attr('name');
+            let valor = Number($(`#${param}`).attr("min"));
+            let novoValor = Number($("#parametroForm #min").val()) + valor;
+            updatePers({ [param]: novoValor });
+
+            $("#parametroModal").modal('hide');
+            $("#parametroForm #min").val("")
+        });
+
+        $(".atributo p").on("click", (e) => {
+            const nomeAtributo = $(e.target).attr("atributo");
+            const valorAtributo = $(e.target).attr("valor");
+
+            $.ajax({
+                url: `/teste-atributo/${nomeAtributo}?personagem=${personagem}`,
+                method: 'GET',
+                complete: (res) => {
+                    const response = res.responseJSON;
+                    if (response.status === 1) {
+
+                        $("#rolagemModal #tituloRolagem").html(`Teste de ${response.data.titulo} <small class="text-muted">(${response.data.modificador})</small> `);
+                        $("#rolagemModal #valorRolagem").text(response.data.valor);
+                        $("#rolagemModal #resultadoRolagem").text(response.data.tipo);
+                        $("#rolagemModal").modal('show');
+                    }
+                }
+            });
+
+        });
+
+        $("body").on("click", ".pericia", (e) => {
+            const nomePericia = $(e.target).attr("nome");
+
+            $.ajax({
+                url: `/teste-pericia/${nomePericia}?personagem=${personagem}`,
+                method: 'GET',
+                complete: (res) => {
+                    const response = res.responseJSON;
+                    if (response.status === 1) {
+
+                        $("#rolagemModal #tituloRolagem").html(`Teste de ${response.data.atributo} <small class="text-muted">(${response.data.modificador})</small> `);
+                        $("#rolagemModal #valorRolagem").text(response.data.valor);
+                        $("#rolagemModal #resultadoRolagem").text(response.data.tipo);
+                        $("#rolagemModal").modal('show');
+                    }
+                }
+            });
+        });
+
+        $("body").on("click", ".ataque", (e) => {
+
+            $.ajax({
+                url: `/rolagem/rolar/${$(e.target).attr("formula")}?personagem=${personagem}`,
+                method: 'GET',
+                complete: (res) => {
+                    const response = res.responseJSON;
+                    if (response.status === 1) {
+                        $("#rolagemModal #tituloRolagem").html(`Dano de Ataque`);
+                        $("#rolagemModal #valorRolagem").text(response.data.valor);
+                        $("#rolagemModal #resultadoRolagem").text(response.data.tipo);
+                        $("#rolagemModal").modal('show');
+                    }
+                }
+            });
+        });
+
+        $("body").on("click", "button.editar-item", (e) => {
+            const itemBtn = $(e.target);
+
+            $("#nomeItem").text(itemBtn.attr("itemNome"));
+            $("#itemNome").val(itemBtn.attr("itemNome"));
+            $("#itemPeso").val(itemBtn.attr("itemPeso").replace(/\D+/g, ''));
+            $("#itemQuantidade").val(itemBtn.attr("itemQuantidade").replace(/\D+/g, ''));
+            $("#itemModal").modal('show');
+
+            $("#itemForm").on("submit", (e) => {
+                e.preventDefault();
+
+                const data = {
+                    nome: $("#itemNome").val(),
+                    peso: $("#itemPeso").val(),
+                    quantidade: $("#itemQuantidade").val()
+                };
+
+                $.ajax({
+                    url: `/item/${itemBtn.attr("itemId")}`,
+                    method: 'PUT',
+                    dataType: "JSON",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify(data),
+                    complete: (res) => {
+                        if (res.responseJSON.status === 1) {
+                            getPers();
+                            $("#itemModal").modal('hide');
+                        }
+                    }
+                });
+            });
+
+            $("#itemForm .excluir").on("click", (e) => {
+                if (confirm("Deseja mesmo excluir?")) {
+                    $.ajax({
+                        url: `/item/${itemBtn.attr("itemId")}`,
+                        method: "DELETE",
+                        complete: (res) => {
+                            if (res.responseJSON.status === 1) {
+                                getPers();
+                                $("#itemModal").modal('hide');
+                            }
+                        }
+                    });
+                }
+            });
+
+        });
+
+    });
+</script>

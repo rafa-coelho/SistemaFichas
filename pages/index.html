@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rolagem</title>
+    <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -22,16 +22,8 @@
 </head>
 <body>
 
-    <div class="container-fluid" id="rolagem" style="height: 100vh; display: none;" >
-        <div class="col-md-12 text-center" style="height: 70px">
-            <img src="/media/d20.png" alt="D20" height="70" class="img-responsive">
-            <h3 style="position: relative; margin-top: -47px;" class="gold" id="valor_rolagem">20</h3>
-        </div>
-        <div class="col-md-12 text-center" style="height: 30px;">
-            <h4 id="resultado" class="gold">
-                Sucesso!
-            </h4>
-        </div>
+    <div class="container p-4" id="personagens">
+        
     </div>
 
 </body>
@@ -54,35 +46,25 @@
 
     
     const checkRoll = () => {
-        timestamp = SecondsAgo(5);
+        
         $.ajax({
-            url: `/rolagem/personagem/${personagem}?timestamp=${timestamp}`,
+            url: `/personagem?where=npc = 0`,
             method: 'GET',
             complete: (res) => {
                 const response = res.responseJSON;
-                console.log(response.data);
-                if(response.status === 1){
-                    for (let i = 0; i < response.data.rolagens.length; i++) {
-                        const rolagem = response.data.rolagens[i];
+                
+                let html = ``;
+                response.data.forEach(element => {
 
-                        $("#valor_rolagem").text(rolagem.valor);
-                        $("#resultado").text(rolagem.tipo);
-                        $("#rolagem").fadeIn('slow');
-                        setTimeout(() => {
-                            $('#rolagem').fadeOut('slow');
-                        }, 3000);
+                    html += `<button class="btn btn-primary" style="margin-right: 5px" onclick="document.location.href='/painel?personagem=${element.id}'">`;
+                    html += `   ${element.nome}`;
+                    html += `</button>`;
 
-                    }
+                });
 
-                    setTimeout(() => {
-                        checkRoll();
-                    }, 5000);
+                $("#personagens").html(html);
 
-                }else{
-                    setTimeout(() => {
-                        checkRoll();
-                    }, 5000);
-                }
+                console.log(html)
 
             }
         });

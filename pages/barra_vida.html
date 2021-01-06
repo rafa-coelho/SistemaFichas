@@ -21,7 +21,6 @@
     </style>
 </head>
 <body>
-
     <div style="display: block; width: 300px;">
         <div class="row" style=" height: 100px;">
             <div class="circulo" >
@@ -97,6 +96,7 @@
     var hp = 0;
     var sanity = 0;
 
+    const timeout = (ms) =>  new Promise(resolve => setTimeout(resolve, ms));
     
     const checkStats = () => {
         const timestamp = SecondsAgo(3);
@@ -136,37 +136,42 @@
         });
     };
     
-    const checkRoll = () => {
-        const timestamp = SecondsAgo(3);
+    const checkRoll = (time = null) => {
+        const timestamp = time || SecondsAgo(3);
         $.ajax({
             url: `/rolagem/personagem/${personagem}?timestamp=${timestamp}`,
             method: 'GET',
-            complete: (res) => {
+            complete: async (res) => {
                 const response = res.responseJSON;
                 if(response.status === 1){
-                    
+                    let done = response.data.rolagens.length == 0;
+
                     for (let i = 0; i < response.data.rolagens.length; i++) {
                         $("#token").fadeOut();
-                        setTimeout(() => {
-                            const rolagem = response.data.rolagens[i];
-    
-                            $("#valor_rolagem").text(rolagem.valor);
-                            $("#resultado").text(rolagem.tipo);
-                            $("#rolagem").fadeIn('slow');
-                            setTimeout(() => {
-                                $('#rolagem').fadeOut();
-                                setTimeout(() => {
-                                    $("#token").fadeIn();
-                                },300);
-                            }, 3000);
-
-                        }, 300);
-
+                        
+                        await timeout(600);
+                        
+                        const rolagem = response.data.rolagens[i];
+                        $("#valor_rolagem").text(rolagem.valor);
+                        $("#resultado").text(rolagem.tipo);
+                        $("#rolagem").fadeIn('slow');
+                        
+                        await timeout(2000);
+                        $('#rolagem').fadeOut();
+                        await timeout(500);
+                        $("#token").fadeIn();
+                        
+                        if(i + 1 === response.data.rolagens.length){
+                            timeout(1000);
+                            checkRoll(rolagem.data);
+                        }
                     }
-
-                    setTimeout(() => {
-                        checkRoll();
-                    }, 3000);
+                    
+                    if(response.data.rolagens.length == 0){
+                        setTimeout(() => {
+                            checkRoll();
+                        }, 3000);
+                    }
 
                 }else{
                     setTimeout(() => {

@@ -55,6 +55,20 @@ data.pericias = [
     { nome: "Sobrevivência", label: "sobrevivencia", atributo: "sabedoria" },
 ];
 
+data.atributos = [
+    { nome: "Destreza", label: "destreza" },
+    { nome: "Inteligência", label: "inteligencia" },
+    { nome: "Força", label: "forca" },
+    { nome: "Carisma", label: "carisma" },
+    { nome: "Sabedoria", label: "sabedoria" },
+    { nome: "Constituição", label: "constituicao" },
+    { nome: "Sanidade", label: "sanidade" },
+];
+
+data.getAtributoByLabel = (label) => {
+    return data.atributos.find(x => x.label === label);
+};
+
 data.getPericiaByLabel = (label) => {
     return data.pericias.find(x => x.label === label);
 };

@@ -17,7 +17,8 @@ module.exports = {
             inteligencia: 12,
             sabedoria: 10,
             carisma: 16,
-            dado_vida: '1d8'
+            dado_vida: '1d8',
+            npc: 0
         },
         {
             id: '4c5d76ea-4e0a-11eb-ae93-0242ac130002',
@@ -35,7 +36,8 @@ module.exports = {
             inteligencia: 14,
             sabedoria: 13,
             carisma: 10,
-            dado_vida: '1d8'
+            dado_vida: '1d8',
+            npc: 0
         },
         {
             id: '4c5d77da-4e0a-11eb-ae93-0242ac130002',
@@ -53,7 +55,8 @@ module.exports = {
             inteligencia: 13,
             sabedoria: 14,
             carisma: 16,
-            dado_vida: '1d8'
+            dado_vida: '1d8',
+            npc: 0
         },
         {
             id: '4c5d7a6e-4e0a-11eb-ae93-0242ac130002',
@@ -71,7 +74,8 @@ module.exports = {
             inteligencia: 14,
             sabedoria: 8,
             carisma: 11,
-            dado_vida: '1d10'
+            dado_vida: '1d10',
+            npc: 0
         },
         {
             id: '4c5d7b4a-4e0a-11eb-ae93-0242ac130002',
@@ -89,7 +93,8 @@ module.exports = {
             inteligencia: 13,
             sabedoria: 8,
             carisma: 10,
-            dado_vida: '1d10+2'
+            dado_vida: '1d10+2',
+            npc: 1
         },
     ]
 };

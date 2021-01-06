@@ -1,5 +1,5 @@
 const { DiceRoll } = require('rpg-dice-roller/lib/umd/bundle.js');
-const { getPericiaByLabel } = require('../data/Mapeamento');
+const { getPericiaByLabel, getAtributoByLabel } = require('../data/Mapeamento');
 
 module.exports = (app) => {
 
@@ -15,6 +15,8 @@ module.exports = (app) => {
         const timestamp = query.timestamp;
 
         const rolagem = await Rolagem.Get(`personagem = '${params.id}' AND data >= '${timestamp}'`, 'data DESC');
+
+        await Rolagem.Delete(`id in ('${rolagem.map(x => x.id).join(`', '`)}')`);
 
         resp.data = {
             timestamp: new Date() / 1000 | 0,
@@ -51,7 +53,7 @@ module.exports = (app) => {
             id: Util.generateId(),
             personagem: query.personagem,
             atributo: params.atributo,
-            titulo: params.atributo,
+            titulo: getAtributoByLabel(params.atributo).nome,
             valor: valorRolagem,
             modificador: modificador,
             data: new Date() / 1000 | 0
@@ -64,11 +66,11 @@ module.exports = (app) => {
 
             if (valorRolagem === 1) {
                 data.tipo = "Extremo";
-            }else if(valorRolagem <= valorAtributo){
+            } else if (valorRolagem <= valorAtributo) {
                 data.tipo = "Sucesso";
-            }else if(valorRolagem === 100){
+            } else if (valorRolagem === 100) {
                 data.tipo = "Critico";
-            }else{
+            } else {
                 data.tipo = "Falha";
             }
 
@@ -129,9 +131,9 @@ module.exports = (app) => {
             modificador = modificador + Personagem.calcularProficiencia(personagem.nivel);
         }
 
-        const valorPericia = modificador + personagem[pericia.atributo];
+        const valorAtributo = personagem[pericia.atributo];
 
-        const roll1 = new DiceRoll(`1d20+${modificador}`);
+        const roll1 = new DiceRoll(`1d20`);
         let valorRolagem = roll1.total;
 
         const data = {
@@ -144,17 +146,19 @@ module.exports = (app) => {
             data: new Date() / 1000 | 0
         };
 
-        const porcent = (valorRolagem / (20 + modificador)) * 100;
-
+        const sobra = 20 - valorRolagem;
         if (valorRolagem === 1) {
-            data.tipo = "Crítico";
-        } else if (porcent < 50) {
+            data.tipo = "Critico";
+        } else if (sobra > valorRolagem + modificador) {
             data.tipo = "Falha";
-        } else if (porcent >= 50 && porcent < 90) {
+        } else if (sobra + valorAtributo * 0.5 >= valorRolagem + modificador) {
             data.tipo = "Normal";
+        } else if (sobra + valorAtributo * 0.9 >= valorRolagem + modificador) {
+            data.tipo = "Bom";
         } else {
             data.tipo = "Extremo";
         }
+
         const createRolagem = await Rolagem.Create(data);
         if (createRolagem.status !== 1) {
             resp.errors.push({

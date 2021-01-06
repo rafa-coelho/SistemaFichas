@@ -10,9 +10,13 @@ module.exports = (app) => {
         res.sendFile(ROOT + '/pages/barra_vida.html');
     });
 
-    // Daniel é otário
-    app.get(`/fingerprint`, (req, res) => {
-        res.sendFile(ROOT + '/pages/daniel_otario.html');
+    // Painel
+    app.get(`/`, (req, res) => {
+        res.sendFile(ROOT + '/pages/index.html');
+    });
+    // Painel
+    app.get(`/painel`, (req, res) => {
+        res.sendFile(ROOT + '/pages/painel.html');
     });
 
     
