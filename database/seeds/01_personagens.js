@@ -18,6 +18,7 @@ module.exports = {
             sabedoria: 10,
             carisma: 16,
             dado_vida: '1d8',
+            po: 20,
             npc: 0
         },
         {
@@ -35,6 +36,7 @@ module.exports = {
             constituicao: 8,
             inteligencia: 14,
             sabedoria: 13,
+            po: 20,
             carisma: 10,
             dado_vida: '1d8',
             npc: 0
@@ -56,6 +58,7 @@ module.exports = {
             sabedoria: 14,
             carisma: 16,
             dado_vida: '1d8',
+            po: 20,
             npc: 0
         },
         {
@@ -75,6 +78,7 @@ module.exports = {
             sabedoria: 8,
             carisma: 11,
             dado_vida: '1d10',
+            po: 35,
             npc: 0
         },
         {

@@ -20,6 +20,11 @@ exports.up = async function (database, utf8 = false) {
                 table.integer('inteligencia').defaultTo(0);
                 table.integer('sabedoria').defaultTo(0);
                 table.integer('carisma').defaultTo(0);
+                table.integer('pc').defaultTo(0);
+                table.integer('pp').defaultTo(0);
+                table.integer('pe').defaultTo(0);
+                table.integer('po').defaultTo(0);
+                table.integer('pl').defaultTo(0);
                 table.integer('npc').defaultTo(0);
                 table.string('dado_vida', 25);
 

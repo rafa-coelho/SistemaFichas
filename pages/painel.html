@@ -237,6 +237,36 @@
             </div>
 
             <div class="tab-pane" id="inventario" role="tabpanel" aria-labelledby="home-tab">
+                
+                <div class="container-fluid">
+                    <div class="row d-flex justify-content-center" style="padding-top: 1em;">
+
+                        <div class="col-2 slot" style="text-align: center;color:#BD3424;">
+                            <h4 style="font-weight: bold;">PC</h4>
+                            <p name="PC" id="pc" class="parametro" style="font-size: 1.2em; margin-top: -5px;"></p>
+                        </div>
+                        <div class="col-2 slot" style="text-align: center;color:#BD3424;">
+                            <h4 style="font-weight: bold;">PP</h4>
+                            <p name="PP" id="pp" class="parametro" style="font-size: 1.2em; margin-top: -5px;"></p>
+                        </div>
+                        <div class="col-2 slot" style="text-align: center;color:#BD3424;">
+                            <h4 style="font-weight: bold;">PE</h4>
+                            <p name="PE" id="pe" class="parametro" style="font-size: 1.2em; margin-top: -5px;"></p>
+                        </div>
+                        <div class="col-2 slot" style="text-align: center;color:#BD3424;">
+                            <h4 style="font-weight: bold;">PO</h4>
+                            <p name="PO" id="po" class="parametro" style="font-size: 1.2em; margin-top: -5px;"></p>
+                        </div>
+                        <div class="col-2 slot" style="text-align: center;color:#BD3424;">
+                            <h4 style="font-weight: bold;">PL</h4>
+                            <p name="PL" id="pl" class="parametro" style="font-size: 1.2em; margin-top: -5px;"></p>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                
                 <div class="container-fluid pt-2">
                     <div class="row p-2">
 
@@ -396,7 +426,7 @@
 
                                     <div class="col-2"></div>
                                     <div class="col-8">
-                                        <input type="number" class="form-control" id="min" value="">
+                                        <input type="number" class="form-control" id="valor" value="">
                                     </div>
 
                                 </div>
@@ -654,12 +684,25 @@
                     $("#sanidade_bar").text(`${pers.sanidade}/${pers.sanidade_maxima}`);
 
                     $("#hp").text(`${pers.hp}/${pers.hp_maximo}`);
-                    $("#hp").attr("min", pers.hp);
+                    $("#hp").attr("valor", pers.hp);
                     $("#hp").attr("max", pers.hp_maximo);
 
                     $("#sanidade").text(`${pers.sanidade}/${pers.sanidade_maxima}`);
-                    $("#sanidade").attr("min", pers.sanidade);
+                    $("#sanidade").attr("valor", pers.sanidade);
                     $("#sanidade").attr("max", pers.sanidade_maxima);
+                    
+                    $("#pc").text(pers.pc);
+                    $("#pc").attr("valor", pers.pc);
+                    $("#pp").text(pers.pp);
+                    $("#pp").attr("valor", pers.pp);
+                    $("#pe").text(pers.pe);
+                    $("#pe").attr("valor", pers.pe);
+                    $("#po").text(pers.po);
+                    $("#po").attr("valor", pers.po);
+                    $("#pl").text(pers.pl);
+                    $("#pl").attr("valor", pers.pl);
+
+
 
                     $(`.atributo .forca p`).text(pers.forca);
                     $(`.atributo .forca p`).attr("valor", pers.forca);
@@ -775,27 +818,28 @@
         $(".parametro").on("click", (e) => {
             const nomeParametro = $(e.target).attr("id");
             const tituloParametro = $(e.target).attr("name");
-            const minParametro = $(e.target).attr("min");
+            const minParametro = $(e.target).attr("valor");
             const maxParametro = $(e.target).attr("max");
 
             $("#parametroModal #tituloParametro").text(tituloParametro);
-            $("#parametroModal #min").attr("name", nomeParametro);
+            $("#parametroModal #valor").attr("name", nomeParametro);
 
             $("#parametroModal").modal('show');
 
+            $("#parametroForm").on("submit", (e) => {
+                e.preventDefault();
+    
+                const param = $("#parametroForm #valor").attr('name');
+                let valor = Number($(`#${param}`).attr("valor"));
+                let novoValor = Number($("#parametroForm #valor").val()) + valor;
+
+                updatePers({ [param]: novoValor });
+    
+                $("#parametroModal").modal('hide');
+                $("#parametroForm #valor").val("");
+            });
         });
 
-        $("#parametroForm").on("submit", (e) => {
-            e.preventDefault();
-
-            const param = $("#parametroForm #min").attr('name');
-            let valor = Number($(`#${param}`).attr("min"));
-            let novoValor = Number($("#parametroForm #min").val()) + valor;
-            updatePers({ [param]: novoValor });
-
-            $("#parametroModal").modal('hide');
-            $("#parametroForm #min").val("")
-        });
 
         $(".atributo p").on("click", (e) => {
             const nomeAtributo = $(e.target).attr("atributo");
