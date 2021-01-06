@@ -756,8 +756,8 @@
                     let htmlInventario = '';
                     for (const item of pers.inventario.itens) {
                         htmlInventario += `<tr>`;
-                        htmlInventario += `    <td>${item.nome}</td>`;
                         htmlInventario += `    <td>${item.quantidade}</td>`;
+                        htmlInventario += `    <td>${item.nome}</td>`;
                         htmlInventario += `    <td>${item.peso}kg</td>`;
                         htmlInventario += `    <td>`;
                         htmlInventario += `        <button itemNome="${item.nome}" itemId="${item.id}" itemQuantidade="${item.quantidade}" itemPeso="${item.peso}" class="btn btn-small btn-round editar-item" style="background-color: #BD3424; color: #FEECC8;">`;

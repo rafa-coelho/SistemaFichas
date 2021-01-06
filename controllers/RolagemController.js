@@ -146,14 +146,14 @@ module.exports = (app) => {
             data: new Date() / 1000 | 0
         };
 
-        const sobra = 20 - (valorRolagem);
+        const sobra = 20 - valorRolagem;
         if (valorRolagem === 1) {
             data.tipo = "Critico";
-        } else if (sobra > valorRolagem + modificador) {
+        } else if (sobra > valorRolagem) {
             data.tipo = "Falha";
-        } else if (sobra + valorAtributo * 0.5 >= valorRolagem + modificador) {
+        } else if (sobra + valorAtributo * 0.5 >= valorRolagem) {
             data.tipo = "Normal";
-        } else if (sobra + valorAtributo * 0.9 >= valorRolagem + modificador) {
+        } else if (sobra + valorAtributo * 0.9 >= valorRolagem) {
             data.tipo = "Bom";
         } else {
             data.tipo = "Extremo";
