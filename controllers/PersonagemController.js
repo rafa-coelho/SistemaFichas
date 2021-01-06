@@ -42,7 +42,7 @@ module.exports = (app) => {
             const itens = await Item.Get(`personagem = '${params.id}'`)
             personagem.inventario = {
                 peso: itens.reduce((a, b) => {
-                    return a + (parseFloat(b.peso) * b.quantidade)
+                    return a + (parseFloat(b.peso || 0) * (b.quantidade || 0))
                 }, 0),
                 ataques: itens.filter(item => [2, 3].includes(item.tipo)).sort((a, b) => {
                     if (a.tipo > b.tipo) {

@@ -17,8 +17,12 @@
 
 <body>
 
-    <nav class="navbar" style="background-color: #BD3424; height: 50px">
-
+    <nav class="navbar " style="background-color: #BD3424; height: 50px">
+        <div class="container">
+            <div class="row text-center" style="width: 100%;">
+                <h2 class="bold" style="color: #FEECC8;font-weight: bold;" id="nomePers"></h2>
+            </div>
+        </div>
 
     </nav>
 
@@ -271,7 +275,7 @@
                     <div class="row p-2">
 
                         <div class="col-6">
-                            <h4 style="font-weight: bold;color:#BD3424;">Itens</h4>
+                            <h4 style="font-weight: bold;color:#BD3424;">Itens <span id="peso"></span></h4>
                         </div>
                         <div class="col-6">
                             <button class="btn pull-right adicionar-item"
@@ -670,8 +674,7 @@
                 if (response.status === 1) {
                     const pers = response.data;
 
-                    $("#nome").text(pers.nome);
-                    $("#token").attr("src", `/media/${pers.id}.png`);
+                    $("#nomePers").text(pers.nome);
 
                     $("#hp_bar").attr("style", `width: ${(pers.hp / pers.hp_maximo) * 100}%`);
                     $("#hp_bar").attr("aria-valuemax", pers.hp_maximo);
@@ -766,6 +769,8 @@
                     }
                     $(".lista-inventario").html(htmlInventario);
 
+                    $("#peso").text(` (${pers.inventario.peso} kg)`);
+
                     let htmlPericia = '';
 
                     for (const pericia of pericias) {
@@ -825,19 +830,25 @@
             $("#parametroModal #valor").attr("name", nomeParametro);
 
             $("#parametroModal").modal('show');
+            setTimeout(() => {
 
-            $("#parametroForm").on("submit", (e) => {
-                e.preventDefault();
-    
-                const param = $("#parametroForm #valor").attr('name');
-                let valor = Number($(`#${param}`).attr("valor"));
-                let novoValor = Number($("#parametroForm #valor").val()) + valor;
+                $("#parametroModal #valor").focus();
+            }, 500);
 
-                updatePers({ [param]: novoValor });
-    
-                $("#parametroModal").modal('hide');
-                $("#parametroForm #valor").val("");
-            });
+        });
+        
+        $("#parametroForm").on("submit", (e) => {
+            e.preventDefault();
+
+            const param = $("#parametroForm #valor").attr('name');
+            let valor = Number($(`#${param}`).attr("valor"));
+            let novoValor = Number($("#parametroForm #valor").val()) + valor;
+
+            $(`#${param}`).attr("valor", novoValor);
+            updatePers({ [param]: novoValor });
+
+            $("#parametroModal").modal('hide');
+            $("#parametroForm #valor").val("");
         });
 
 
@@ -893,6 +904,7 @@
                         $("#rolagemModal #tituloRolagem").html($(e.target).text());
                         $("#rolagemModal #valorRolagem").text(response.data.valor);
                         $("#rolagemModal #resultadoRolagem").text(response.data.tipo);
+                        $("#rolagemModal #resultadoRolagem").text("");
                         $("#rolagemModal").modal('show');
                     }
                 }

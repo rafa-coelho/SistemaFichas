@@ -8,8 +8,8 @@ exports.up = async function (database, utf8 = false) {
                 table.string('id', 45).primary();
                 table.string('personagem', 45);
                 table.string('nome', 45);
-                table.integer('quantidade');
-                table.string('peso', 5);
+                table.integer('quantidade').defaultTo(0);
+                table.string('peso', 5).defaultTo(0);
                 table.integer('tipo');
                 table.integer('dano');
 
