@@ -89,6 +89,20 @@ const updatePers = (data, personagem) => {
     })
 };
 
+const rolarDadoFormula = (formula, personagem = '') => {
+    return new Promise(resolve => {
+        $.ajax({
+            url: `/rolagem/rolar/${formula}?personagem=${personagem}`,
+            method: 'GET',
+            complete: (res) => {
+                const response = res.responseJSON;
+                if (response.status === 1) {
+                    resolve(response.data);
+                }
+            }
+        });
+    });
+}
 
 
 

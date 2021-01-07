@@ -182,13 +182,15 @@ module.exports = (app) => {
             msg: ''
         };
 
-        const personagem = await Personagem.GetFirst(`id = '${query.personagem}'`);
-
-        if (!personagem) {
-            resp.errors.push({
-                msg: "Personagem não encontrado"
-            });
-            return res.status(404).send(resp);
+        if(query.personagem){
+            const personagem = await Personagem.GetFirst(`id = '${query.personagem}'`);
+    
+            if (!personagem) {
+                resp.errors.push({
+                    msg: "Personagem não encontrado"
+                });
+                return res.status(404).send(resp);
+            }
         }
 
         const roll1 = new DiceRoll(`${params.formula || '1d20'}`);

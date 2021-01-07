@@ -334,12 +334,14 @@ $("body").on("submit", "#adicionarNpcForm", (e) => {
 });
 
 // ------------- Rolar Dado
-$("body").on("click", ".btn-dado.formula", (e) => {
+$("body").on("click", ".btn-dado.formula", async (e) => {
     const btnDado = $(e.target);
-
-    // $("#rolagemModal #tituloRolagem").html(``);
-    // $("#rolagemModal #valorRolagem").text(``);
-    // $("#rolagemModal #resultadoRolagem").text(``);
+    const dado = await rolarDadoFormula(btnDado.attr("formula"));
+    
+    $("#rolagemModal #tituloRolagem").html('');
+    $("#rolagemModal #valorRolagem").text(dado.valor);
+    $("#rolagemModal #resultadoRolagem").text('');
+    $("#rolagemModal #resultadoRolagem").text('');
     $("#rolagemModal").modal('show');
 });
 
