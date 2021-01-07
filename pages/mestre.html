@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/src/styles.css">
+</head>
+
+<body>
+
+    <nav class="header navbar fixed-top mb-2">
+        <div class="container">
+
+            <!-- Header -->
+
+        </div>
+    </nav>
+
+    <div class="main container">
+
+        <div class="tab-content">
+
+            <!-- Tab NPC's -->
+            <div class="tab-pane active" id="npcs" role="tabpanel">
+
+                <div class="container-fluid">
+
+                    <div class="row p-2">
+                        <div class="col-6">
+                            <h4 style="font-weight: bold;color:#BD3424;">NPC's</h4>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn pull-right btn-red adicionar-npc">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="personagens"></div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!--/ Tab NPC's -->
+
+            <!-- Tab Dados -->
+            <div class="tab-pane" id="dados" role="tabpanel">
+                <div class="container-fluid">
+
+                    <div class="row p-2 page-header">
+                        <div class="col">
+                            <h4 style="font-weight: bold;color:#BD3424;">Rolagem de dados</h4>
+                        </div>
+                    </div>
+
+                    <h5 class="section-title">Dados</h5>
+                    <div class="row">
+                        <div class="container-fluid horizontal-scroll">
+                            <div class="row text-center flex-nowrap flex-sm-wrap">
+
+                                <button class="btn btn-dado btn-round formula" formula="1d20">
+                                    D20
+                                </button>
+
+                                <button class="btn btn-dado btn-round formula" formula="1d4">
+                                    D4
+                                </button>
+
+                                <button class="btn btn-dado btn-round formula" formula="1d6">
+                                    D6
+                                </button>
+
+                                <button class="btn btn-dado btn-round formula" formula="1d8">
+                                    D8
+                                </button>
+
+                                <button class="btn btn-dado btn-round formula" formula="1d10">
+                                    D10
+                                </button>
+
+                                <button class="btn btn-dado btn-round formula" formula="1d12">
+                                    D12
+                                </button>
+
+                                <button class="btn btn-dado btn-round formula" formula="1d100">
+                                    D100
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h5 class="section-title">Loucura</h5>
+                    <div class="row">
+                        <div class="container-fluid horizontal-scroll">
+                            <div class="row text-center flex-nowrap flex-sm-wrap">
+
+                                <div class="col-5">
+                                    <button class="btn btn-dado btn-loucura w-100" tipo="curta">
+                                        Curta
+                                    </button>
+                                </div>
+
+                                <div class="col-5">
+                                    <button class="btn btn-dado btn-loucura w-100" tipo="longa">
+                                        Longa
+                                    </button>
+                                </div>
+
+                                <div class="col-5">
+                                    <button class="btn btn-dado btn-loucura w-100" tipo="permanente">
+                                        Permanente
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!--/ Tab Dados -->
+
+            <!-- Tab Iniciativa -->
+            <div class="tab-pane" id="iniciativa" role="tabpanel">
+                <div class="container-fluid">
+
+                    <div class="row p-2">
+                        <div class="col-6">
+                            <h4 style="font-weight: bold;color:#BD3424;">Iniciativa</h4>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn pull-right btn-red">
+                                <i class="fa fa-undo"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="container iniciativas">
+
+                            <ul class="list-group">
+
+                                <li class="list-group-item d-flex align-items-center iniciativa-personagem">
+                                    <div class="row w-100">
+                                        <div class="col-6">
+                                            <span class="nome">
+                                                Rodimor
+                                            </span>
+                                        </div>
+                                        <div class="col-6" style="text-align: right;">
+                                            <span class="valor">
+                                                20
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center iniciativa-personagem">
+                                    <div class="row w-100">
+                                        <div class="col-6">
+                                            <span class="nome">
+                                                Stevin
+                                            </span>
+                                        </div>
+                                        <div class="col-6" style="text-align: right;">
+                                            <span class="valor">
+                                                16
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--/ Tab Iniciativa -->
+
+            <!-- Tab Rolagens -->
+            <div class="tab-pane" id="rolagens" role="tabpanel">
+                <div class="container-fluid">
+
+                    <div class="row p-2 mb-2">
+                        <div class="col-6">
+                            <h4 style="font-weight: bold;color:#BD3424;">Rolagens</h4>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-sm pull-right btn-red">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="container rolagens">
+
+                            <ul class="list-group">
+
+                                <li class="list-group-item d-flex align-items-center rolagem">
+                                    <div class="container pt-2">
+                                        <div class="row w-100 text-center">
+                                            <h5 class="nome-personagem">Ukah</h5>
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <div class="col-12">
+                                                <img src="/media/d20.png" alt="D20" class="img-responsive" style="width: 50px">
+                                                <h2 class="valor-rolagem">20</h2>
+                                                <h5 class="resultado-rolagem gold">Extremo</h5>
+                                            </div>                                        
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <label class="atributo">
+                                                Destreza 
+                                                <small class="text-muted"> (2) </small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center rolagem">
+                                    <div class="container pt-2">
+                                        <div class="row w-100 text-center">
+                                            <h5 class="nome-personagem">Ukah</h5>
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <div class="col-12">
+                                                <img src="/media/d20.png" alt="D20" class="img-responsive" style="width: 50px">
+                                                <h2 class="valor-rolagem">20</h2>
+                                                <h5 class="resultado-rolagem gold">Extremo</h5>
+                                            </div>                                        
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <label class="atributo">
+                                                Destreza 
+                                                <small class="text-muted"> (2) </small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center rolagem">
+                                    <div class="container pt-2">
+                                        <div class="row w-100 text-center">
+                                            <h5 class="nome-personagem">Ukah</h5>
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <div class="col-12">
+                                                <img src="/media/d20.png" alt="D20" class="img-responsive" style="width: 50px">
+                                                <h2 class="valor-rolagem">20</h2>
+                                                <h5 class="resultado-rolagem gold">Extremo</h5>
+                                            </div>                                        
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <label class="atributo">
+                                                Destreza 
+                                                <small class="text-muted"> (2) </small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center rolagem">
+                                    <div class="container pt-2">
+                                        <div class="row w-100 text-center">
+                                            <h5 class="nome-personagem">Ukah</h5>
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <div class="col-12">
+                                                <img src="/media/d20.png" alt="D20" class="img-responsive" style="width: 50px">
+                                                <h2 class="valor-rolagem">20</h2>
+                                                <h5 class="resultado-rolagem gold">Extremo</h5>
+                                            </div>                                        
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <label class="atributo">
+                                                Destreza 
+                                                <small class="text-muted"> (2) </small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center rolagem">
+                                    <div class="container pt-2">
+                                        <div class="row w-100 text-center">
+                                            <h5 class="nome-personagem">Ukah</h5>
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <div class="col-12">
+                                                <img src="/media/d20.png" alt="D20" class="img-responsive" style="width: 50px">
+                                                <h2 class="valor-rolagem">20</h2>
+                                                <h5 class="resultado-rolagem gold">Extremo</h5>
+                                            </div>                                        
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <label class="atributo">
+                                                Destreza 
+                                                <small class="text-muted"> (2) </small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center rolagem">
+                                    <div class="container pt-2">
+                                        <div class="row w-100 text-center">
+                                            <h5 class="nome-personagem">Ukah</h5>
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <div class="col-12">
+                                                <img src="/media/d20.png" alt="D20" class="img-responsive" style="width: 50px">
+                                                <h2 class="valor-rolagem">20</h2>
+                                                <h5 class="resultado-rolagem gold">Extremo</h5>
+                                            </div>                                        
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <label class="atributo">
+                                                Destreza 
+                                                <small class="text-muted"> (2) </small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center rolagem">
+                                    <div class="container pt-2">
+                                        <div class="row w-100 text-center">
+                                            <h5 class="nome-personagem">Ukah</h5>
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <div class="col-12">
+                                                <img src="/media/d20.png" alt="D20" class="img-responsive" style="width: 50px">
+                                                <h2 class="valor-rolagem">20</h2>
+                                                <h5 class="resultado-rolagem gold">Extremo</h5>
+                                            </div>                                        
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <label class="atributo">
+                                                Destreza 
+                                                <small class="text-muted"> (2) </small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center rolagem">
+                                    <div class="container pt-2">
+                                        <div class="row w-100 text-center">
+                                            <h5 class="nome-personagem">Ukah</h5>
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <div class="col-12">
+                                                <img src="/media/d20.png" alt="D20" class="img-responsive" style="width: 50px">
+                                                <h2 class="valor-rolagem">20</h2>
+                                                <h5 class="resultado-rolagem gold">Extremo</h5>
+                                            </div>                                        
+                                        </div>
+
+                                        <div class="row w-100 text-center">
+                                            <label class="atributo">
+                                                Destreza 
+                                                <small class="text-muted"> (2) </small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--/ Tab Rolagens -->
+
+        </div>
+
+        <!-- Modais -->
+        <div class="modais">
+            <!-- Parâmetro -->
+            <div class="modal fade bd-example-modal-sm text-center" id="parametroModal" tabindex="-1" role="dialog"
+                aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+
+                        <form id="parametroForm">
+                            <div class="modal-body">
+                                <h4 class="titulo-parametro">HP</h4>
+                                <div class="row">
+                                    <div class="col-2"></div>
+                                    <div class="col-8">
+                                        <input type="number" class="form-control valor" value="">
+                                        <input type="hidden" class="form-control personagem" value="">
+                                        <input type="hidden" class="form-control anterior" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!--/ Parâmetro -->
+
+            <!-- Atributo -->
+            <div class="modal fade bd-example-modal-sm text-center" id="atributoModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Teste de Atributo</h4>
+                        </div>
+                        <div class="container-fluid p-2">
+                            <input type="hidden" class="personagem">
+
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <button class="btn atributo" nome="forca">
+                                        Força
+                                    </button>
+                                </div>
+
+                                <div class="col-12 mb-2">
+                                    <button class="btn atributo" nome="destreza">
+                                        Destreza
+                                    </button>
+                                </div>
+
+                                <div class="col-12 mb-2">
+                                    <button class="btn atributo" nome="constituicao">
+                                        Constituição
+                                    </button>
+                                </div>
+
+                                <div class="col-12 mb-2">
+                                    <button class="btn atributo" nome="inteligencia">
+                                        Inteligência
+                                    </button>
+                                </div>
+
+                                <div class="col-12 mb-2">
+                                    <button class="btn atributo" nome="sabedoria">
+                                        Sabedoria
+                                    </button>
+                                </div>
+
+                                <div class="col-12 mb-2">
+                                    <button class="btn atributo" nome="carisma">
+                                        Carisma
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--/ Atributo -->
+
+            <!-- Perícia -->
+            <div class="modal fade bd-example-modal-sm text-center" id="periciaModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Teste de Perícia</h4>
+                        </div>
+                        <div class="container-fluid p-2">
+                            <input type="hidden" class="personagem">
+                            <div class="row">
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia">
+                                        Iniciativa
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="acrobacia">
+                                        Acrobacia
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="arcanismo">
+                                        Arcanismo
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="atletismo">
+                                        Atletismo
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="atuacaoo">
+                                        Atuação
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="blefar">
+                                        Blefar
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="furtividade">
+                                        Furtividade
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="historia">
+                                        História
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="intimidacao">
+                                        Intimidação
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="intuicao">
+                                        Intuição
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="investigacao">
+                                        Investigação
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="lidar">
+                                        Lidar com Animais
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="medicina">
+                                        Medicina
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="natureza">
+                                        Natureza
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="percepcao">
+                                        Percepção
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="persuasao">
+                                        Persuasão
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="prestidigitacao">
+                                        Prestidigitação
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="religiao">
+                                        Religião
+                                    </button>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <button class="btn pericia" nome="sobrevivencia">
+                                        Sobrevivência
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--/ Perícia -->
+
+
+            <!-- Rolagem -->
+            <div class="modal fade bd-example-modal-sm text-center" id="rolagemModal" tabindex="-1" role="dialog"
+                aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            <h2 class="modal-title text-center" id="tituloRolagem"></h2>
+
+                            <div id="rolagem" style="height: 100%;">
+                                <div class="col-12 text-center" style="height: 50px">
+                                    <img src="/media/d20.png" alt="D20" height="50" class="img-responsive"
+                                        style="margin-top: 10px">
+                                    <h4 style="margin-top: -37px;" class="gold" id="valorRolagem"></h4>
+                                </div>
+                                <div class="col-12 text-center" style="height: 30px;">
+                                    <h5 id="resultadoRolagem" class="gold"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Rolagem -->
+
+
+            <!-- Ataque -->
+            <div class="modal fade bd-example-modal-sm text-center" id="ataqueModal" tabindex="-1" role="dialog"
+                aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+
+                        <input type="hidden" class="personagem">
+
+                        <div class="modal-body">
+
+                            <div class="row p-2">
+                                <div class="col-6">
+                                    <h4 style="font-weight: bold;color:#BD3424;">Armas/Magias</h4>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn pull-right adicionar-ataque">
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col" style="text-align: right;">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="ataques"></tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Ataque -->
+
+
+            <!-- Editar Ataque -->
+            <div class="modal fade bd-example-modal-sm text-center" id="editarAtaqueModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        
+                        <form id="editarAtaqueForm">
+                            <input type="hidden" class="personagem">
+                            <input type="hidden" class="idAtaque">
+                            <div class="modal-body">
+                                <h4 id="nomeAtaque">Arco</h4>
+                                <div class="form-group">
+                                    <label class="col-form-label">Nome</label>
+                                    <input required type="text" class="form-control nomeAtaque">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Dano</label>
+                                    <input required type="text" class="form-control danoAtaque">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Tipo</label>
+                                    <select required class="form-control tipoAtaque">
+                                        <option disabled selected value=""> -- Selecione -- </option>
+                                        <option value="2">Arma</option>
+                                        <option value="3">Magia</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Peso</label>
+                                    <input type="number" class="form-control pesoAtaque" value="0">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                                <button type="button" class="btn btn-danger excluir">Excluir</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!--/ Editar Ataque -->
+
+
+            <!-- Adicionar Ataque -->
+            <div class="modal fade bd-example-modal-sm text-center" id="adicionarAtaqueModal" tabindex="-1"
+                role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Adicionar Ataque</h4>
+                        </div>
+                        <form id="adicionarAtaqueForm">
+                            <div class="modal-body">
+                                <input type="hidden" class="personagem">
+                                <div class="form-group">
+                                    <label class="col-form-label">Nome</label>
+                                    <input required type="text" class="form-control nome">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Dano</label>
+                                    <input required type="text" class="form-control dano">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Tipo</label>
+                                    <select required class="form-control tipo">
+                                        <option disabled selected value=""> -- Selecione -- </option>
+                                        <option value="2">Arma</option>
+                                        <option value="3">Magia</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Peso</label>
+                                    <input type="number" class="form-control peso">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                                <button type="button" class="btn btn-secondary close-modal" modal="adicionarAtaqueModal">Cancelar</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!--/ Adicionar Ataque -->
+
+
+            <!-- Adicionar NPC -->
+            <div class="modal fade bd-example-modal-sm text-center" id="adicionarNpcModal" tabindex="-1" role="dialog"
+                aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Adicionar NPC</h4>
+                        </div>
+                        <form id="adicionarNpcForm">
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Nome</label>
+                                    <input required type="text" id="nomeNpc" class="form-control nome" value="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">HP</label>
+                                    <input required type="number" class="form-control hp" value=10>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Força</label>
+                                    <input required type="number" class="form-control forca" value=10>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Destreza</label>
+                                    <input required type="number" class="form-control destreza" value=10>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Constituição</label>
+                                    <input required type="number" class="form-control constituicao" value=10>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Inteligência</label>
+                                    <input required type="number" class="form-control inteligencia" value=10>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Sabedoria</label>
+                                    <input required type="number" class="form-control sabedoria" value=10>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Carisma</label>
+                                    <input required type="number" class="form-control carisma" value=10>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                                <button type="cancelar" class="btn btn-secondary close-modal" modal="adicionarNpcModal">Cancelar</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!--/ Adicionar NPC -->
+
+        </div>
+        <!--/ Modais -->
+
+
+
+        <div class="footer fixed-bottom">
+
+            <ul class="nav nav-pills nav-fill">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="#npcs" data-bs-toggle="tab" role="tab" aria-controls="npcs"
+                        aria-selected="true">NPC's</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#dados" data-bs-toggle="tab" role="tab" aria-controls="dados"
+                        aria-selected="true">Dados</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#iniciativa" data-bs-toggle="tab" role="tab" aria-controls="dados"
+                        aria-selected="true">Iniciativa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#rolagens" data-bs-toggle="tab" role="tab" aria-controls="dados"
+                        aria-selected="true">Rolagens</a>
+                </li>
+
+            </ul>
+
+        </div>
+
+</body>
+
+</html>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="/src/funcoes-mestre.js"></script>
+<script src="/src/mestre.js"></script>

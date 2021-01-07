@@ -18,6 +18,9 @@ app.use(function (req, res, next) {
 global.ROOT = __dirname;
 global.PROD = process.env.NODE_ENV === 'prod';
 
+
+
+app.use(`/src`, express.static(path.resolve(__dirname, 'pages/src')));
 app.use(`/media`, express.static(path.resolve(__dirname, 'media')));
 const fs = require("fs");
 

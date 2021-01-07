@@ -129,4 +129,65 @@ module.exports = (app) => {
         res.send(resp);
     });
 
+    app.delete(`/personagem/:id`, async (req, res) => {
+        const { params, body } = req;
+        const resp = {
+            status: 0,
+            data: null,
+            errors: [],
+            msg: ''
+        };
+
+        const personagem = await Personagem.GetFirst(`id = '${params.id}'`);
+
+        if (!personagem) {
+            resp.errors.push({
+                msg: "Personagem não encontrado!"
+            });
+        }
+
+        const del = await Personagem.Delete(`id = '${params.id}'`);
+
+        if (del.status !== 1) {
+            resp.errors.push({
+                msg: "Não foi possivel excluir",
+            });
+
+            return res.status(500).send(resp);
+        }
+
+        resp.status = 1;
+        resp.msg = "Excluído com sucesso";
+        res.send(resp);
+    });
+
+    app.post(`/personagem`, async (req, res) => {
+        const { body } = req;
+        const resp = {
+            status: 0,
+            data: null,
+            errors: [],
+            msg: ''
+        };
+
+        const payload = {
+            id: Util.generateId(),
+            ...body
+        };
+
+        const create = await Personagem.Create(payload);
+
+        if(create.status !== 1){
+            resp.errors.push({
+                msg: "Erro ao cadastrar Personagem"
+            });
+            return res.status(500).send(resp);
+        }
+
+        resp.status = 1;
+        resp.data = payload;
+        resp.msg = "Personagem criado com sucesso!"
+        res.send(resp);
+    });
+
 };

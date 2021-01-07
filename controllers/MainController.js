@@ -1,6 +1,11 @@
 module.exports = (app) => {
 
     // Home
+    app.get(`/`, (req, res) => {
+        res.sendFile(ROOT + '/pages/index.html');
+    });
+
+    // Rolagens
     app.get(`/rolagens`, (req, res) => {
         res.sendFile(ROOT + '/pages/index.html');
     });
@@ -11,15 +16,13 @@ module.exports = (app) => {
     });
 
     // Painel
-    app.get(`/`, (req, res) => {
-        res.sendFile(ROOT + '/pages/index.html');
-    });
-    // Painel
     app.get(`/painel`, (req, res) => {
         res.sendFile(ROOT + '/pages/painel.html');
     });
 
-    
+    // Painel Mestre
+    app.get(`/mestre`, (req, res) => {
+        res.sendFile(ROOT + '/pages/mestre.html')
+    });
 
 };
-
