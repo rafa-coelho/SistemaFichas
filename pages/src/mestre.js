@@ -392,3 +392,11 @@ $("body").on("click", ".btn-loucura", (e) => {
     });
 
 });
+
+// ------------- Limpar Iniciativa
+$("body").on("click", ".limpar-iniciativa", (e) => {
+    $.ajax({
+        url: '/iniciativa',
+        method: 'DELETE',
+    });
+});
