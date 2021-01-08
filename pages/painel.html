@@ -1093,12 +1093,12 @@
 
         $(".iniciativa").on("click", (e) => {
             $.ajax({
-                url: `/rolagem/iniciativa?personagem=${personagem}`,
-                method: 'GET',
+                url: `/iniciativa/${personagem}`,
+                method: 'POST',
                 complete: (res) => {
                     if(res.responseJSON.status === 1){
                         const response = res.responseJSON;
-                        $("#rolagemModal #tituloRolagem").html(`Teste de ${response.data.titulo} <small class="text-muted">(${response.data.modificador})</small> `);
+                        $("#rolagemModal #tituloRolagem").html(`Iniciativa`);
                         $("#rolagemModal #valorRolagem").text(response.data.valor);
                         $("#rolagemModal #resultadoRolagem").text(response.data.tipo);
                         $("#rolagemModal").modal('show');

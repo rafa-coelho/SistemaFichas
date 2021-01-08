@@ -110,6 +110,33 @@ $("body").on("click", "#periciaModal .pericia", (eAtributo) => {
     $("#rolagemModal").modal('show');
 });
 
+// ------------- Rolar Iniciativa NPC
+$("body").on("click", "#periciaModal .iniciativa", (eAtributo) => {
+    const btn = $(eAtributo.target);
+    $("#periciaModal").modal("hide");
+
+    const personagem = $("#periciaModal .personagem").val();
+    const nomePericia = btn.attr("nome");
+
+    $.ajax({
+        url: `/iniciativa/${personagem}`,
+        method: 'POST',
+        complete: (res) => {
+            const response = res.responseJSON;
+            if (response.status === 1) {
+
+                $("#rolagemModal #tituloRolagem").html(`Iniciativa`);
+                $("#rolagemModal #valorRolagem").text(response.data.valor);
+                $("#rolagemModal #resultadoRolagem").text(response.data.tipo);
+                $("#rolagemModal").modal('show');
+            }
+        }
+    });
+
+
+    $("#rolagemModal").modal('show');
+});
+
 // ------------- Lista de Ataques
 $("body").on("click", "#npcAtaque", async (e) => {
     const btn = $(e.target);

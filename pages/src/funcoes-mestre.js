@@ -1,4 +1,5 @@
 window.NPCs = [];
+window.IniciativaLength = 0;
 const timeout = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const listPersonagens = () => {
@@ -104,8 +105,44 @@ const rolarDadoFormula = (formula, personagem = '') => {
     });
 }
 
+const listarIniciativa = () => {
+    $.ajax({
+        url: `/iniciativa`,
+        method: 'GET',
+        complete: (request) => {
+            const response = request.responseJSON;
+
+            if(response.status === 1){
+                
+                if(response.data.length !== IniciativaLength){
+                    let htmlIniciativa = '';
+    
+                    for (const iniciativa of response.data) {
+                        htmlIniciativa += `<li class="list-group-item d-flex align-items-center iniciativa-personagem">`;
+                        htmlIniciativa += `    <div class="row w-100">`;
+                        htmlIniciativa += `        <div class="col-6">`;
+                        htmlIniciativa += `            <span class="nome">${iniciativa.personagem.nome}</span>`;
+                        htmlIniciativa += `        </div>`;
+                        htmlIniciativa += `        <div class="col-6" style="text-align: right;">`;
+                        htmlIniciativa += `            <span class="valor">${iniciativa.valor}</span>`;
+                        htmlIniciativa += `        </div>`;
+                        htmlIniciativa += `    </div>`;
+                        htmlIniciativa += `</li>`;
+                    }
+                    
+                    $(".lista-iniciativa").html(htmlIniciativa);
+                }
+                
+                timeout(3000);
+                listarIniciativa();
+            }
+        }
+    });
+};
+
 
 
 $(() => {
     listPersonagens();
+    listarIniciativa();
 });

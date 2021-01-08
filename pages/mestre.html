@@ -29,7 +29,7 @@
         <div class="tab-content">
 
             <!-- Tab NPC's -->
-            <div class="tab-pane active" id="npcs" role="tabpanel">
+            <div class="tab-pane" id="npcs" role="tabpanel">
 
                 <div class="container-fluid">
 
@@ -134,7 +134,7 @@
             <!--/ Tab Dados -->
 
             <!-- Tab Iniciativa -->
-            <div class="tab-pane" id="iniciativa" role="tabpanel">
+            <div class="tab-pane active" id="iniciativa" role="tabpanel">
                 <div class="container-fluid">
 
                     <div class="row p-2">
@@ -151,39 +151,7 @@
                     <div class="row">
 
                         <div class="container iniciativas">
-
-                            <ul class="list-group">
-
-                                <li class="list-group-item d-flex align-items-center iniciativa-personagem">
-                                    <div class="row w-100">
-                                        <div class="col-6">
-                                            <span class="nome">
-                                                Rodimor
-                                            </span>
-                                        </div>
-                                        <div class="col-6" style="text-align: right;">
-                                            <span class="valor">
-                                                20
-                                            </span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item d-flex align-items-center iniciativa-personagem">
-                                    <div class="row w-100">
-                                        <div class="col-6">
-                                            <span class="nome">
-                                                Stevin
-                                            </span>
-                                        </div>
-                                        <div class="col-6" style="text-align: right;">
-                                            <span class="valor">
-                                                16
-                                            </span>
-                                        </div>
-                                    </div>
-                                </li>
-
-                            </ul>
+                            <ul class="list-group lista-iniciativa"></ul>
                         </div>
                     </div>
 
@@ -494,8 +462,8 @@
                         <div class="container-fluid p-2">
                             <input type="hidden" class="personagem">
                             <div class="row">
-                                <div class="col-6 mb-2">
-                                    <button class="btn pericia">
+                                <div class="col-12 mb-2">
+                                    <button class="btn iniciativa">
                                         Iniciativa
                                     </button>
                                 </div>
@@ -844,7 +812,7 @@
             <ul class="nav nav-pills nav-fill">
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="#npcs" data-bs-toggle="tab" role="tab" aria-controls="npcs"
+                    <a class="nav-link" href="#npcs" data-bs-toggle="tab" role="tab" aria-controls="npcs"
                         aria-selected="true">NPC's</a>
                 </li>
                 <li class="nav-item">
@@ -852,7 +820,7 @@
                         aria-selected="true">Dados</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#iniciativa" data-bs-toggle="tab" role="tab" aria-controls="dados"
+                    <a class="nav-link active" href="#iniciativa" data-bs-toggle="tab" role="tab" aria-controls="dados"
                         aria-selected="true">Iniciativa</a>
                 </li>
                 <li class="nav-item">
