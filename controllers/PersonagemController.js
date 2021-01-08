@@ -12,7 +12,7 @@ module.exports = (app) => {
         const where = query.where || "";
 
         
-        const personagens = await Personagem.Get(where);
+        const personagens = await Personagem.Get(where, "nome ASC");
 
 
         resp.status = 1;

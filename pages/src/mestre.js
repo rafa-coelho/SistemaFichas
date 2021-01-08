@@ -127,7 +127,7 @@ $("body").on("click", "#periciaModal .iniciativa", (eAtributo) => {
 
                 $("#rolagemModal #tituloRolagem").html(`Iniciativa`);
                 $("#rolagemModal #valorRolagem").text(response.data.valor);
-                $("#rolagemModal #resultadoRolagem").text(response.data.tipo);
+                $("#rolagemModal #resultadoRolagem").text("");
                 $("#rolagemModal").modal('show');
             }
         }
@@ -175,7 +175,7 @@ $("body").on("click", "#npcAtaque", async (e) => {
 $("body").on("click", "#ataqueModal .ataque", (e) => {
 
     $.ajax({
-        url: `/rolagem/rolar/${$(e.target).attr("formula")}?personagem=${$(e.target).attr("personagem")}`,
+        url: `/rolagem/rolar/${$(e.target).attr("formula")}?personagem=${$(e.target).attr("personagem")}&titulo=Dano`,
         method: 'GET',
         complete: (res) => {
             const response = res.responseJSON;
@@ -194,7 +194,7 @@ $("body").on("click", "#ataqueModal .ataque", (e) => {
 });
 
 // ------------- Editar Ataque
-$("body").on("click", "#ataqueModal .editar-ataque", (e) => {
+$("body").on("click", "#ataqueModal .editar-ataque", async (e) => {
 
     const ataqueBtn = $(e.target);
 
@@ -209,7 +209,7 @@ $("body").on("click", "#ataqueModal .editar-ataque", (e) => {
     $("#ataqueModal").modal("hide");
     $("#editarAtaqueModal").modal('show');
 
-    timeout(500);
+    await timeout(500);
     $("#editarAtaqueModal .nomeAtaque").focus();
 });
 
@@ -264,14 +264,14 @@ $("body").on("click", ".close-modal", (e) => {
 });
 
 // ------------- Adicionar Ataque
-$("body").on("click", "#ataqueModal .adicionar-ataque", (e) => {
+$("body").on("click", "#ataqueModal .adicionar-ataque", async (e) => {
     const personagem = $(e.target).attr("personagem");
     $("#adicionarAtaqueModal .personagem").val(personagem);
     $("#ataqueModal").modal("hide");
 
 
     $("#adicionarAtaqueModal").modal('show');
-    timeout(500);
+    await timeout(500);
     $("#adicionarAtaqueModal .nome").focus();
 });
 
@@ -398,5 +398,19 @@ $("body").on("click", ".limpar-iniciativa", (e) => {
     $.ajax({
         url: '/iniciativa',
         method: 'DELETE',
+        complete: () => {
+            $(".lista-iniciativa").html("");
+        }
+    });
+});
+
+// ------------- Limpar Rolagens
+$("body").on("click", "#limparRolagens", (e) => {
+    $.ajax({
+        url: '/rolagem',
+        method: 'DELETE',
+        complete: () => {
+            $("#listaRolagens").html("");
+        }
     });
 });

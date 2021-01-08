@@ -139,8 +139,8 @@ module.exports = (app) => {
         const data = {
             id: Util.generateId(),
             personagem: query.personagem,
-            atributo: pericia.nome,
-            titulo: params.atributo,
+            titulo: pericia.nome,
+            // titulo: params.atributo,
             valor: valorRolagem,
             modificador: modificador,
             data: new Date() / 1000 | 0
@@ -200,6 +200,7 @@ module.exports = (app) => {
             id: Util.generateId(),
             personagem: query.personagem,
             formula: params.formula,
+            titulo: query.titulo || "",
             valor: valorRolagem,
             data: new Date() / 1000 | 0
         };
@@ -240,6 +241,35 @@ module.exports = (app) => {
             loucura: loucura.descricao
         };
         res.send(resp);
+    });
+
+    app.get(`/rolagem`, async (req, res) => {
+        const { query } = req;
+        const resp = {
+            status: 0,
+            data: null,
+            errors: [],
+            msg: ''
+        };
+
+        const where = (query.timestamp) ? `data > ${query.timestamp} AND (personagem is not null AND personagem != '')` : `personagem is not null AND personagem != ''`;
+        const rolagens = await Rolagem.GetIncludeDeleted(where, 'data ASC');
+
+        for (const i in rolagens) {
+            rolagens[i].personagem = await Personagem.GetFirstIncludeDeleted(`id = '${rolagens[i].personagem}'`);
+        }
+
+        resp.status = 1;
+        resp.data = rolagens;
+        res.send(resp);
+    });
+
+    app.delete(`/rolagem`, async (req, res) => {
+        await Rolagem.Delete('', true);
+        res.send({
+            status: 1,
+            msg: 'Lista de rolagens limpa!'
+        });
     });
 
 };

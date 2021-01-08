@@ -1,6 +1,28 @@
 window.NPCs = [];
 window.IniciativaLength = 0;
+
 const timeout = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+const formatedData = (data) => {
+    if (Number(data)) {
+
+        if (data <= 0) {
+            return false;
+        }
+
+        const date = new Date(Number(data * 1000));
+        return `${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}`;
+    }
+
+    const date = new Date(data);
+    return `${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}`;
+};
+
+const SecondsAgo = (num) => {
+    var date = new Date();
+    date.setHours(date.getHours(), date.getMinutes(), date.getSeconds() - num, date.getMilliseconds());
+    return (date.getTime() / 1000) | 0;
+};
 
 const listPersonagens = () => {
 
@@ -105,11 +127,11 @@ const rolarDadoFormula = (formula, personagem = '') => {
     });
 }
 
-const listarIniciativa = () => {
+const listarIniciativa = async () => {
     $.ajax({
         url: `/iniciativa`,
         method: 'GET',
-        complete: (request) => {
+        complete: async (request) => {
             const response = request.responseJSON;
 
             if(response.status === 1){
@@ -132,16 +154,64 @@ const listarIniciativa = () => {
                 $(".lista-iniciativa").html(htmlIniciativa);
                 
                 
-                timeout(3000);
+                await timeout(3000);
                 listarIniciativa();
             }
         }
     });
 };
 
+const listarRolagens = async (timestamp = '') => {
+    $.ajax({
+        url: `/rolagem?timestamp=${timestamp}`,
+        method: 'GET',
+        complete: async (request) => {
+            timestamp = SecondsAgo(2);
+            const response = request.responseJSON;
 
+            if(response.status === 1){
+
+                if(response.data.length > 0){
+                    for (const rolagem of response.data) {
+                        let htmlRolagem = '';                   
+                        htmlRolagem += `<li class="list-group-item d-flex align-items-center rolagem">`;
+                        htmlRolagem += `    <div class="container-fluid pt-2 w-100" style="padding-right: 0px;padding-left: 0px;">`;
+                        htmlRolagem += `        <div class="row w-100 text-center">`;
+                        htmlRolagem += `            <h5 class="nome-personagem">${rolagem.personagem.nome}</h5>`;
+                        htmlRolagem += `        </div>`;
+                        htmlRolagem += `        <div class="row w-100 text-center">`;
+                        htmlRolagem += `            <div class="col-12">`;
+                        htmlRolagem += `                <img src="/media/d20.png" alt="D20" class="img-responsive" style="width: 50px">`;
+                        htmlRolagem += `                <h2 class="valor-rolagem">${rolagem.valor}</h2>`;
+                        htmlRolagem += `                <h5 class="resultado-rolagem gold">${rolagem.tipo ? rolagem.tipo : ''}</h5>`;
+                        htmlRolagem += `            </div>                                        `;
+                        htmlRolagem += `        </div>`;
+                        htmlRolagem += `        <div class="row w-100 text-center" style="min-height: 20px">`;
+                        htmlRolagem += `            <label class="atributo"> ${rolagem.titulo || ""} ${rolagem.modificador ? `<small class="text-muted"> (${rolagem.modificador}) </small>` : '' }</label>`;
+                        htmlRolagem += `        </div>`;
+                        htmlRolagem += `        <div class="row w-100" style="min-height: 20px; text-align: right">`;
+                        htmlRolagem += `            <small class="pull-right">${formatedData(rolagem.data)} </small>`;
+                        htmlRolagem += `        </div>`;
+                        htmlRolagem += `    </div>`;
+                        htmlRolagem += `</li>`;
+                        $("#listaRolagens").append(htmlRolagem);
+                    }
+                    
+                    await timeout(500);
+                    var element = document.getElementById("listaRolagens");
+                    element.scrollTop = element.scrollHeight;
+                }
+
+            }
+            
+            await timeout(3000);
+            listarRolagens(timestamp);
+        }
+    });
+};
 
 $(() => {
     listPersonagens();
     listarIniciativa();
+    listarRolagens();
 });

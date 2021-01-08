@@ -10,7 +10,7 @@ exports.up = async function (database, utf8 = false) {
                 table.integer('valor');
                 table.string('tipo', 30);
                 table.string('titulo', 30);
-                table.integer('modificador');
+                table.string('modificador', 5);
                 table.string('data', 20);
 
                 table.integer('deleted').defaultTo(0);

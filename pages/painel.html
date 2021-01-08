@@ -899,7 +899,7 @@
         $("body").on("click", ".ataque, .dado", (e) => {
 
             $.ajax({
-                url: `/rolagem/rolar/${$(e.target).attr("formula")}?personagem=${personagem}`,
+                url: `/rolagem/rolar/${$(e.target).attr("formula")}?personagem=${personagem}&titulo=${$(e.target).text()}`,
                 method: 'GET',
                 complete: (res) => {
                     const response = res.responseJSON;

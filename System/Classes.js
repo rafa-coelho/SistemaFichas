@@ -25,6 +25,23 @@ class Classes
         return data;
     }
 
+    static async GetIncludeDeleted(where, order_by = "", limit = ""){
+        const db = new DB(this.table);
+        db.Where(where);
+        db.OrderBy(order_by);
+        db.Limit(limit);
+
+        const data = (await db.GetIncludeDeleted()).map(x => {
+            const obj = {};
+            for (const field of this.fields) {
+                obj[field] = x[field];
+            }
+            return obj;
+        });
+
+        return data;
+    }
+
     static async GetFirst(where, order_by = "", limit = ""){
         const db = new DB(this.table);
         db.Where(where);
@@ -32,6 +49,23 @@ class Classes
         db.Limit(limit);
 
         const data = (await db.Get()).map(x => {
+            const obj = {};
+            for (const field of this.fields) {
+                obj[field] = x[field];
+            }
+            return obj;
+        });
+
+        return data[0];
+    }
+
+    static async GetFirstIncludeDeleted(where, order_by = "", limit = ""){
+        const db = new DB(this.table);
+        db.Where(where);
+        db.OrderBy(order_by);
+        db.Limit(limit);
+
+        const data = (await db.GetIncludeDeleted()).map(x => {
             const obj = {};
             for (const field of this.fields) {
                 obj[field] = x[field];
@@ -77,34 +111,27 @@ class Classes
         };
     }
     
-    static async Delete(where){
+    static async Delete(where, del = false){
         const db = new DB(this.table);
         db.Where(where);
 
         db.deleted = 1;
 
-        const result = await db.Update();
-        return {
-            status: (result) ? 1 : 0,
-            msg: (result) ? "Excluido com sucesso!" : "Erro ao excluir!"
-        };
-        
-        if(this.fields.includes("deleted")){
-            db.deleted = 1;
-    
+        if(!del){
             const result = await db.Update();
             return {
                 status: (result) ? 1 : 0,
                 msg: (result) ? "Excluido com sucesso!" : "Erro ao excluir!"
             };
-
         }else{
             const result = await db.Delete();
+            
             return {
                 status: (result) ? 1 : 0,
                 msg: (result) ? "Excluido com sucesso!" : "Erro ao excluir!"
             };
         }
+
     }
 
 }

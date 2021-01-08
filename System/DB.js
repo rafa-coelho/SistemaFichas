@@ -39,6 +39,29 @@ class DB
         return data;
     }
     
+    async GetIncludeDeleted(){
+        const where = (this.where != "" && this.where != undefined) ? `(${this.where})` : "";
+        const order_by = (this.order_by) ? this.order_by : "id desc";
+        let limit = (this._limit) ? this._limit : 1000000;
+        let offset = (this._offset) ? this._offset : 0;
+
+        
+        if(limit){
+            if(limit.toString().indexOf(',') >= 0){
+                offset = limit.split(',')[0].replace(/\D+/g, '')
+                limit = limit.split(',')[1].replace(/\D+/g, '')
+            }
+        }
+
+        const data = await database(this.table)
+            .whereRaw(where)
+            .orderByRaw(order_by)
+            .limit(limit)
+            .offset(offset);
+
+        return data;
+    }
+    
     async Insert(){
         const obj = {};
 
@@ -80,11 +103,13 @@ class DB
     }
     
     async Delete(){
-        const where = (this.where != "" && this.where != undefined) ? `(${this.where}) AND deleted = 0` : "deleted = 0";
+        const where = this.where;
 
-        return await database(this.table)
+        const del = await database(this.table)
             .whereRaw(where)
             .del();
+
+        return del;
     }
 
     OrderBy(order_by){
