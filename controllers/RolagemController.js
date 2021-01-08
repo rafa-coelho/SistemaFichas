@@ -1,5 +1,5 @@
 const { DiceRoll } = require('rpg-dice-roller/lib/umd/bundle.js');
-const { getPericiaByLabel, getAtributoByLabel } = require('../data/Mapeamento');
+const { getPericiaByLabel, getAtributoByLabel, getLoucura } = require('../data/Mapeamento');
 
 module.exports = (app) => {
 
@@ -298,6 +298,29 @@ module.exports = (app) => {
 
         resp.status = 1;
         resp.msg = "Iniciativa Limpa";
+        res.send(resp);
+    });
+
+    app.get(`/rolagem/loucura/:tipo`, async (req, res) => {
+        const { query, params } = req;
+        const resp = {
+            status: 0,
+            data: null,
+            errors: [],
+            msg: ''
+        };
+
+        const roll = new DiceRoll(`1d100`);
+        const valorRolagem = roll.total;
+
+        const loucura = getLoucura(params.tipo, valorRolagem);
+
+        resp.status = 1;
+        resp.data = {
+            valor: valorRolagem,
+            tipo: params.tipo,
+            loucura: loucura.descricao
+        };
         res.send(resp);
     });
 

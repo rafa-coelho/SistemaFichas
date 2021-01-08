@@ -338,7 +338,7 @@ $("body").on("click", ".btn-dado.formula", async (e) => {
     const btnDado = $(e.target);
     const dado = await rolarDadoFormula(btnDado.attr("formula"));
     
-    $("#rolagemModal #tituloRolagem").html('');
+    $("#rolagemModal #tituloRolagem").html(btnDado.text());
     $("#rolagemModal #valorRolagem").text(dado.valor);
     $("#rolagemModal #resultadoRolagem").text('');
     $("#rolagemModal #resultadoRolagem").text('');
@@ -349,10 +349,19 @@ $("body").on("click", ".btn-dado.formula", async (e) => {
 $("body").on("click", ".btn-loucura", (e) => {
     const btnLoucura = $(e.target);
 
-    // Busca Loucura
+    $.ajax({
+        url: `/rolagem/loucura/${btnLoucura.attr("tipo")}`,
+        method: 'GET',
+        complete: (request) => {
+            const response = request.responseJSON;
 
-    // $("#rolagemModal #tituloRolagem").html(``);
-    // $("#rolagemModal #valorRolagem").text(``);
-    // $("#rolagemModal #resultadoRolagem").text(``);
-    $("#rolagemModal").modal('show');
+            if(response.status === 1){
+                $("#loucuraModal #tituloLoucura").html(`Insanidade ${response.data.titulo}`);
+                $("#loucuraModal #valorRolagem").text(response.data.valor);
+                $("#loucuraModal #descricaoLoucura").text(response.data.loucura);
+                $("#loucuraModal").modal('show');
+            }
+        }
+    });
+
 });
