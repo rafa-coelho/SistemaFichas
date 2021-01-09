@@ -97,8 +97,7 @@ $("body").on("click", "#periciaModal .pericia", (eAtributo) => {
         complete: (res) => {
             const response = res.responseJSON;
             if (response.status === 1) {
-
-                $("#rolagemModal #tituloRolagem").html(`Teste de ${response.data.atributo} <small class="text-muted">(${response.data.modificador})</small> `);
+                $("#rolagemModal #tituloRolagem").html(`Teste de ${response.data.titulo} <small class="text-muted">(${response.data.modificador})</small> `);
                 $("#rolagemModal #valorRolagem").text(response.data.valor);
                 $("#rolagemModal #resultadoRolagem").text(response.data.tipo);
                 $("#rolagemModal").modal('show');
@@ -327,6 +326,8 @@ $("body").on("submit", "#adicionarNpcForm", (e) => {
         nome: $("#adicionarNpcModal .nome").val(),
         hp: $("#adicionarNpcModal .hp").val(),
         hp_maximo: $("#adicionarNpcModal .hp").val(),
+        sanidade: $("#adicionarNpcModal .sanidade").val(),
+        sanidade_maxima: $("#adicionarNpcModal .sanidade").val(),
         forca: $("#adicionarNpcModal .forca").val(),
         destreza: $("#adicionarNpcModal .destreza").val(),
         constituicao: $("#adicionarNpcModal .constituicao").val(),
@@ -413,4 +414,19 @@ $("body").on("click", "#limparRolagens", (e) => {
             $("#listaRolagens").html("");
         }
     });
+});
+
+// ------------- Excluir NPC
+$("body").on("click", ".excluir-npc", (e) => {
+    const btn = $(e.target);
+
+    if(confirm(`Deseja realmente excluir "${btn.attr("personagemNome")}"?`)){
+        $.ajax({
+            url: `/personagem/${btn.attr("personagem")}`,
+            method: "DELETE",
+            complete: () => {
+                listPersonagens();
+            }
+        });
+    }
 });

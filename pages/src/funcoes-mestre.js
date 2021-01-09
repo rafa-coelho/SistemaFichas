@@ -40,6 +40,9 @@ const listPersonagens = () => {
                 for (const personagem of personagens) {
                     html += `<div class="card">`;
                     html += `    <div class="card-body">`;
+                    html += `        <div class="row" style="float: right">`;
+                    html += `           <button class="btn btn-sm excluir-npc" personagem="${personagem.id}" personagemNome="${personagem.nome}"><i personagem="${personagem.id}" personagemNome="${personagem.nome}" class="fa fa-close"></i></button>`;
+                    html += `        </div>`;
                     html += `        <h3 class="card-title text-center">${personagem.nome}</h3>`;
                     html += `        <div class="row">`;
                     html += `            <div class="col-6 text-center parametro">`;
