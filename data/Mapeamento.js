@@ -4,7 +4,7 @@ data.pericias = [
     { nome: "Acrobacia", label: "acrobacia", atributo: "destreza" },
     { nome: "Arcanismo", label: "arcanismo", atributo: "inteligencia" },
     { nome: "Atletismo", label: "atletismo", atributo: "forca" },
-    { nome: "Atuação", label: "atuacaoo", atributo: "carisma" },
+    { nome: "Atuação", label: "atuacao", atributo: "carisma" },
     { nome: "Blefar", label: "blefar", atributo: "carisma" },
     { nome: "Furtividade", label: "furtividade", atributo: "destreza" },
     { nome: "História", label: "historia", atributo: "inteligencia" },
@@ -38,7 +38,6 @@ data.getAtributoByLabel = (label) => {
 data.getPericiaByLabel = (label) => {
     return data.pericias.find(x => x.label === label);
 };
-
 
 data.loucura = {
     curta: [

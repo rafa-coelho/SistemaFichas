@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        *{
+            font-family: 'Roboto', sans-serif;
+        }
+        .gold {
+            color: #000;
+            font-weight: bold;
+            text-shadow: 0px 0px 8px gold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="" id="personagens">
+        
+    </div>
+
+</body>
+</html>
+
+<style>
+
+</style>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const personagem = urlParams.get('personagem');
+
+    const SecondsAgo = (num) => {
+        var date = new Date();
+        date.setHours(date.getHours(), date.getMinutes(), date.getSeconds() - num, date.getMilliseconds());
+        return (date.getTime() / 1000) | 0;
+    };
+
+    
+    const checkRoll = () => {
+        
+        $.ajax({
+            url: `/personagem?where=npc = 0`,
+            method: 'GET',
+            complete: (res) => {
+                const response = res.responseJSON;
+                
+                let html = ``;
+                response.data.forEach(element => {
+
+                    html += `<button class="btn btn-primary" style="margin-right: 5px" onclick="document.location.href='/barra-vida?personagem=${element.id}'">`;
+                    html += `   ${element.nome}`;
+                    html += `</button>`;
+
+                });
+
+                $("#personagens").html(html);
+
+                console.log(html)
+
+            }
+        });
+    };
+
+    $(() => {
+        checkRoll();
+    });
+
+
+
+
+    
+    
+</script>

@@ -10,6 +10,11 @@ module.exports = (app) => {
         res.sendFile(ROOT + '/pages/index.html');
     });
 
+    // Selecionar Barra de Vida
+    app.get(`/ver-vida`, (req, res) => {
+        res.sendFile(ROOT + '/pages/ver_vida.html');
+    });
+
     // Barra de Vida
     app.get(`/barra-vida`, (req, res) => {
         res.sendFile(ROOT + '/pages/barra_vida.html');
