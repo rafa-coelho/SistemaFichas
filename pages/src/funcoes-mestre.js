@@ -197,12 +197,9 @@ const listarRolagens = async (timestamp = '') => {
                         htmlRolagem += `        </div>`;
                         htmlRolagem += `    </div>`;
                         htmlRolagem += `</li>`;
-                        $("#listaRolagens").append(htmlRolagem);
+                        $("#listaRolagens").prepend(htmlRolagem);
                     }
                     
-                    await timeout(500);
-                    var element = document.getElementById("listaRolagens");
-                    element.scrollTop = element.scrollHeight;
                 }
 
             }
