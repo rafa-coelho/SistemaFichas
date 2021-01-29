@@ -11,7 +11,7 @@ exports.up = async function (database, utf8 = false) {
                 table.integer('quantidade').defaultTo(0);
                 table.string('peso', 5).defaultTo(0);
                 table.integer('tipo');
-                table.integer('dano');
+                table.string('dano', 10);
 
                 table.integer('deleted').defaultTo(0);
             });
