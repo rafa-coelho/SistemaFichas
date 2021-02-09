@@ -126,15 +126,17 @@ module.exports = (app) => {
         const pericia = getPericiaByLabel(params.pericia);
 
         let modificador = Personagem.calcularModificador(personagem[pericia.atributo]);
+        const proficiencia = 0;
 
         if (personagem.pericias.find(x => x.nome === pericia.nome)) {
             modificador = modificador + Personagem.calcularProficiencia(personagem.nivel);
+            proficiencia = Personagem.calcularProficiencia(personagem.nivel);
         }
 
         const valorAtributo = personagem[pericia.atributo];
 
         const roll1 = new DiceRoll(`1d20`);
-        let valorRolagem = roll1.total;
+        let valorRolagem = roll1.total + modificador;
 
         const data = {
             id: Util.generateId(),
