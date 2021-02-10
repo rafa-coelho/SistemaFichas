@@ -40,7 +40,6 @@ const fs = require("fs");
 const consign = require('consign');
 consign().include('controllers').into(app);
 
-// Teste de Deploy
 const port = PROD ? 3000 : 3333;
 app.listen(port, async () => {
     console.log("--------------------------------------------");
