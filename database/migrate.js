@@ -6,40 +6,41 @@ const database = require('./connection');
 
 const migrationsDir = path.join(__dirname, 'migrations');
 
-const createDB = async () => {
-    if(PROD){
+const createDB = async() => {
+    console.log(PROD)
+    if (PROD) {
         const conn = {
             host: process.env.DB_HOST ? process.env.DB_HOST : "127.0.0.1",
             user: process.env.DB_USER ? process.env.DB_USER : "root",
             password: process.env.DB_PASS ? process.env.DB_PASS : "",
             charset: 'utf8'
         };
-    
-        try{
+
+        try {
             const knex = require('knex')({ client: 'mysql', connection: conn });
-            await knex.raw(`CREATE DATABASE ${process.env.DB_BASE ? process.env.DB_BASE : "sistemas_fichas_dnd"}`).then(() => { }).catch(e => {});
-        }catch(e){
+            await knex.raw(`CREATE DATABASE ${process.env.DB_BASE ? process.env.DB_BASE : "sistemas_fichas_dnd"}`).then(() => {}).catch(e => {});
+        } catch (e) {
             console.log(e);
         }
     }
     return true;
 };
 
-const migrate = async () => {
+const migrate = async() => {
     await createDB();
-    
+
     const migrations = fs.readdirSync(migrationsDir);
 
     for (const file of migrations) {
         const migration = require(`${migrationsDir}/${file}`);
         let error = false;
-        try{
+        try {
             await migration.up(database, PROD);
-        }catch(E){
+        } catch (E) {
             error = true;
             console.log(E);
         }
-        if(!error){
+        if (!error) {
             console.log(`Runned ${file} successfully!`);
         }
     }
@@ -51,9 +52,9 @@ const migrate = async () => {
     process.exit();
 }
 
-const seed = async () => {
+const seed = async() => {
     const seedsDir = path.join(__dirname, 'seeds');
-    
+
     const seeds = fs.readdirSync(seedsDir);
 
     for (const file of seeds) {
@@ -61,10 +62,10 @@ const seed = async () => {
         let error = false;
         try {
             const exists = (await database(seed.table).whereIn('id', seed.values.map(x => x.id))).length > 0;
-            if(!exists){
+            if (!exists) {
                 await database(seed.table).insert(seed.values)
             }
-            
+
         } catch (E) {
             error = true;
             console.log(E);
