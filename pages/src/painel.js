@@ -381,24 +381,42 @@ $(() => {
         $("#editarAtaqueModal").modal('show');
         $("#editarAtaqueModal .nome").focus();
 
-        $("#editarAtaqueForm").on("submit", (e) => {
-            e.preventDefault();
+        $("body").attr("ataqueId", itemBtn.attr("ataqueId"));
 
-            const data = {
-                nome: $("#editarAtaqueModal .nome").val(),
-                peso: $("#editarAtaqueModal .peso").val(),
-                tipo: $("#editarAtaqueModal .tipo").val(),
-                dano: $("#editarAtaqueModal .dano").val()
-            };
+    });
 
+    $("#editarAtaqueForm").on("submit", (e) => {
+        e.preventDefault();
+
+        const data = {
+            nome: $("#editarAtaqueModal .nome").val(),
+            peso: $("#editarAtaqueModal .peso").val(),
+            tipo: $("#editarAtaqueModal .tipo").val(),
+            dano: $("#editarAtaqueModal .dano").val()
+        };
+
+        $.ajax({
+            url: `/item/${$("body").attr("ataqueId")}`,
+            method: 'PUT',
+            dataType: "JSON",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify(data),
+            complete: (res) => {
+                if (res.responseJSON.status === 1) {
+                    getPers();
+                    $("#editarAtaqueModal").modal('hide');
+                }
+            }
+        });
+    });
+
+    $("#editarAtaqueModal .excluir").on("click", (e) => {
+        if (confirm("Deseja mesmo excluir?")) {
             $.ajax({
-                url: `/item/${itemBtn.attr("ataqueId")}`,
-                method: 'PUT',
-                dataType: "JSON",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                data: JSON.stringify(data),
+                url: `/item/${$("body").attr("ataqueId")}`,
+                method: "DELETE",
                 complete: (res) => {
                     if (res.responseJSON.status === 1) {
                         getPers();
@@ -406,25 +424,9 @@ $(() => {
                     }
                 }
             });
-        });
-
-        $("#editarAtaqueModal .excluir").on("click", (e) => {
-            if (confirm("Deseja mesmo excluir?")) {
-                $.ajax({
-                    url: `/item/${itemBtn.attr("ataqueId")}`,
-                    method: "DELETE",
-                    complete: (res) => {
-                        if (res.responseJSON.status === 1) {
-                            getPers();
-                            $("#editarAtaqueModal").modal('hide');
-                        }
-                    }
-                });
-            }
-        });
-
-
+        }
     });
+
 
     $("body").on("click", "button.adicionar-item", (e) => {
         $("#adicionarItemModal").modal('show');
