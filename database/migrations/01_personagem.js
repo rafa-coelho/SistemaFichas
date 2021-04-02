@@ -1,6 +1,7 @@
-exports.up = async function (database, utf8 = false) {
-    return database.schema.hasTable('personagem').then(function (exists) {
-        if (!exists)
+exports.up = async function(database, utf8 = false) {
+    return database.schema.hasTable('personagem').then(function(exists) {
+        console.log(exists)
+        if (!exists) {
             return database.schema.createTable("personagem", table => {
                 if (utf8)
                     table.collate('utf8_unicode_ci');
@@ -30,13 +31,14 @@ exports.up = async function (database, utf8 = false) {
 
                 table.integer('deleted').defaultTo(0);
             });
+        }
 
     });
 
 }
 
-exports.down = async function (database) {
-    return database.schema.hasTable('personagem').then(function (exists) {
+exports.down = async function(database) {
+    return database.schema.hasTable('personagem').then(function(exists) {
         if (exists)
             return database.schema.dropTable('personagem');
     });
