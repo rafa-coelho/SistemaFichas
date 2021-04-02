@@ -349,8 +349,9 @@ $(() => {
                 peso: $("#novoAtaqueModal .peso").val(),
                 tipo: $("#novoAtaqueModal .tipo").val(),
                 dano: $("#novoAtaqueModal .dano").val(),
-                personagem: personagem,
+                personagem: personagemId,
             };
+
 
             $.ajax({
                 url: `/item`,
@@ -440,7 +441,7 @@ $(() => {
                 peso: $("#adicionarItemModal .peso").val(),
                 tipo: 1,
                 quantidade: $("#adicionarItemModal .quantidade").val(),
-                personagem: personagem,
+                personagem: personagemId,
             };
 
             $.ajax({

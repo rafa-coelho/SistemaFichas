@@ -1,14 +1,13 @@
-class Classes 
-{
+class Classes {
 
-    static async Count(where){
+    static async Count(where) {
         const db = new DB(this.table);
-        return (where) 
-            ?  (await db.Query(`SELECT count(*) FROM ${this.table} WHERE (${where}) and deleted = 0`))[0]["count(*)"]
-            : (await db.Query(`SELECT count(*) FROM ${this.table} WHERE deleted = 0 `))[0]["count(*)"];
+        return (where) ?
+            (await db.Query(`SELECT count(*) FROM ${this.table} WHERE (${where}) and deleted = 0`))[0]["count(*)"] :
+            (await db.Query(`SELECT count(*) FROM ${this.table} WHERE deleted = 0 `))[0]["count(*)"];
     }
 
-    static async Get(where, order_by = "", limit = ""){
+    static async Get(where, order_by = "", limit = "") {
         const db = new DB(this.table);
         db.Where(where);
         db.OrderBy(order_by);
@@ -25,7 +24,7 @@ class Classes
         return data;
     }
 
-    static async GetIncludeDeleted(where, order_by = "", limit = ""){
+    static async GetIncludeDeleted(where, order_by = "", limit = "") {
         const db = new DB(this.table);
         db.Where(where);
         db.OrderBy(order_by);
@@ -42,7 +41,7 @@ class Classes
         return data;
     }
 
-    static async GetFirst(where, order_by = "", limit = ""){
+    static async GetFirst(where, order_by = "", limit = "") {
         const db = new DB(this.table);
         db.Where(where);
         db.OrderBy(order_by);
@@ -59,7 +58,7 @@ class Classes
         return data[0];
     }
 
-    static async GetFirstIncludeDeleted(where, order_by = "", limit = ""){
+    static async GetFirstIncludeDeleted(where, order_by = "", limit = "") {
         const db = new DB(this.table);
         db.Where(where);
         db.OrderBy(order_by);
@@ -76,16 +75,15 @@ class Classes
         return data[0];
     }
 
-    static async Create(data){
+    static async Create(data) {
         const db = new DB(this.table);
 
-        for(var dado in data){
-            if(this.fields.includes(dado))
+        for (var dado in data) {
+            if (this.fields.includes(dado))
                 db[dado] = data[dado];
         }
 
         const result = await db.Insert();
-
         return {
             status: (result) ? 1 : 0,
             data: (result) ? result[0] : null,
@@ -93,11 +91,11 @@ class Classes
         };
     }
 
-    static async Update(data, where){
+    static async Update(data, where) {
         const db = new DB(this.table);
 
-        for(var dado in data){
-            if(this.fields.includes(dado))
+        for (var dado in data) {
+            if (this.fields.includes(dado))
                 db[dado] = data[dado];
         }
 
@@ -110,22 +108,22 @@ class Classes
             msg: (result) ? "Atualizado com sucesso!" : "Erro ao atualizar!"
         };
     }
-    
-    static async Delete(where, del = false){
+
+    static async Delete(where, del = false) {
         const db = new DB(this.table);
         db.Where(where);
 
         db.deleted = 1;
 
-        if(!del){
+        if (!del) {
             const result = await db.Update();
             return {
                 status: (result) ? 1 : 0,
                 msg: (result) ? "Excluido com sucesso!" : "Erro ao excluir!"
             };
-        }else{
+        } else {
             const result = await db.Delete();
-            
+
             return {
                 status: (result) ? 1 : 0,
                 msg: (result) ? "Excluido com sucesso!" : "Erro ao excluir!"

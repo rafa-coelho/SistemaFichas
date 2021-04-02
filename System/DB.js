@@ -1,30 +1,29 @@
 const database = require('../database/connection');
 
-class DB
-{
-    constructor(table){
+class DB {
+    constructor(table) {
 
         this.table = table;
     }
 
-    Where(where){
+    Where(where) {
         this.where = where;
     }
 
-    Limit(limit){
+    Limit(limit) {
         this._limit = limit;
     }
-    
-    
-    async Get(){
+
+
+    async Get() {
         const where = (this.where != "" && this.where != undefined) ? `(${this.where}) AND deleted = 0` : "deleted = 0";
         const order_by = (this.order_by) ? this.order_by : "id desc";
         let limit = (this._limit) ? this._limit : 1000000;
         let offset = (this._offset) ? this._offset : 0;
 
-        
-        if(limit){
-            if(limit.toString().indexOf(',') >= 0){
+
+        if (limit) {
+            if (limit.toString().indexOf(',') >= 0) {
                 offset = limit.split(',')[0].replace(/\D+/g, '')
                 limit = limit.split(',')[1].replace(/\D+/g, '')
             }
@@ -38,16 +37,16 @@ class DB
 
         return data;
     }
-    
-    async GetIncludeDeleted(){
+
+    async GetIncludeDeleted() {
         const where = (this.where != "" && this.where != undefined) ? `(${this.where})` : "";
         const order_by = (this.order_by) ? this.order_by : "id desc";
         let limit = (this._limit) ? this._limit : 1000000;
         let offset = (this._offset) ? this._offset : 0;
 
-        
-        if(limit){
-            if(limit.toString().indexOf(',') >= 0){
+
+        if (limit) {
+            if (limit.toString().indexOf(',') >= 0) {
                 offset = limit.split(',')[0].replace(/\D+/g, '')
                 limit = limit.split(',')[1].replace(/\D+/g, '')
             }
@@ -61,38 +60,38 @@ class DB
 
         return data;
     }
-    
-    async Insert(){
+
+    async Insert() {
         const obj = {};
 
         for (const param in this) {
             if (this.hasOwnProperty(param)) {
-                const ignore = [ "table", "where", "db" ];
+                const ignore = ["table", "where", "db"];
 
                 const field = this[param];
-                if(typeof(field) == "function" || ignore.includes(param))
+                if (typeof(field) == "function" || ignore.includes(param))
                     continue;
-                
+
                 obj[param] = field;
             }
         }
 
         return await database(this.table).insert(obj);
     }
-    
-    async Update(callback){
+
+    async Update(callback) {
         const where = (this.where != "" && this.where != undefined) ? `(${this.where}) AND deleted = 0` : "deleted = 0";
 
         const obj = {};
 
         for (const param in this) {
             if (this.hasOwnProperty(param)) {
-                const ignore = [ "table", "where", "db" ];
+                const ignore = ["table", "where", "db"];
 
                 const field = this[param];
-                if(typeof(field) == "function" || ignore.includes(param))
+                if (typeof(field) == "function" || ignore.includes(param))
                     continue;
-                
+
                 obj[param] = field;
             }
         }
@@ -101,8 +100,8 @@ class DB
             .whereRaw(where)
             .update(obj);
     }
-    
-    async Delete(){
+
+    async Delete() {
         const where = this.where;
 
         const del = await database(this.table)
@@ -112,11 +111,11 @@ class DB
         return del;
     }
 
-    OrderBy(order_by){
+    OrderBy(order_by) {
         this.order_by = order_by;
     }
 
-    async Query(query){
+    async Query(query) {
         return await database.raw(query);
     }
 

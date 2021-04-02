@@ -1,6 +1,6 @@
 module.exports = (app) => {
 
-    app.post(`/item`, async (req, res) => {
+    app.post(`/item`, async(req, res) => {
         const { body } = req;
         const resp = {
             status: 0,
@@ -15,7 +15,7 @@ module.exports = (app) => {
         };
 
         const create = await Item.Create(data);
-        if(create.status !== 1){
+        if (create.status !== 1) {
             resp.errors.push({
                 msg: "Não foi possivel inserir",
             });
@@ -28,7 +28,7 @@ module.exports = (app) => {
         res.send(resp);
     });
 
-    app.put(`/item/:id`, async (req, res) => {
+    app.put(`/item/:id`, async(req, res) => {
         const { params, body } = req;
         const resp = {
             status: 0,
@@ -80,7 +80,7 @@ module.exports = (app) => {
         res.send(resp);
     });
 
-    app.delete(`/item/:id`, async (req, res) => {
+    app.delete(`/item/:id`, async(req, res) => {
         const { params } = req;
         const resp = {
             status: 0,
@@ -101,7 +101,7 @@ module.exports = (app) => {
 
         const del = await Item.Delete(`id = '${params.id}'`);
 
-        if(del.status !== 1){
+        if (del.status !== 1) {
             resp.errors.push({
                 msg: "Erro ao excluir item"
             });
